@@ -51,8 +51,8 @@ export default function TwoFactor({
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="default">Enabled</Badge>
-                            <p className="text-muted-foreground">
+                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded-lg">✅ Enabled</Badge>
+                            <p className="text-gray-600 dark:text-gray-400">
                                 With two-factor authentication enabled, you will
                                 be prompted for a secure, random pin during
                                 login, which you can retrieve from the
@@ -72,6 +72,7 @@ export default function TwoFactor({
                                             variant="destructive"
                                             type="submit"
                                             disabled={processing}
+                                            className="rounded-xl font-semibold"
                                         >
                                             <ShieldBan /> Disable 2FA
                                         </Button>
@@ -81,8 +82,8 @@ export default function TwoFactor({
                         </div>
                     ) : (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="destructive">Disabled</Badge>
-                            <p className="text-muted-foreground">
+                            <Badge className="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded-lg">❌ Disabled</Badge>
+                            <p className="text-gray-600 dark:text-gray-400">
                                 When you enable two-factor authentication, you
                                 will be prompted for a secure pin during login.
                                 This pin can be retrieved from a TOTP-supported
@@ -93,6 +94,7 @@ export default function TwoFactor({
                                 {hasSetupData ? (
                                     <Button
                                         onClick={() => setShowSetupModal(true)}
+                                        className="bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                     >
                                         <ShieldCheck />
                                         Continue Setup
@@ -108,6 +110,7 @@ export default function TwoFactor({
                                             <Button
                                                 type="submit"
                                                 disabled={processing}
+                                                className="bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                             >
                                                 <ShieldCheck />
                                                 Enable 2FA

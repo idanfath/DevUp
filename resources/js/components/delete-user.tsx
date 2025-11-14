@@ -25,10 +25,10 @@ export default function DeleteUser() {
                 title="Delete account"
                 description="Delete your account and all of its resources"
             />
-            <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
-                <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
-                    <p className="font-medium">Warning</p>
-                    <p className="text-sm">
+            <div className="space-y-4 rounded-xl border-2 border-red-300 bg-red-50 p-6 dark:border-red-500/50 dark:bg-red-900/20">
+                <div className="relative space-y-1 text-red-700 dark:text-red-200">
+                    <p className="font-bold text-base">⚠️ Warning</p>
+                    <p className="text-sm font-medium">
                         Please proceed with caution, this cannot be undone.
                     </p>
                 </div>
@@ -38,6 +38,7 @@ export default function DeleteUser() {
                         <Button
                             variant="destructive"
                             data-test="delete-user-button"
+                            className='cursor-pointer'
                         >
                             Delete account
                         </Button>

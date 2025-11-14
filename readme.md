@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/logo.svg" alt="DevUp Logo" width="120" height="120">
+  <img src="public/logo.png" alt="DevUp Logo"  height="120">
 
   # DevUp
 

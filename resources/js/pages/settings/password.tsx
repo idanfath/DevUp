@@ -120,8 +120,9 @@ export default function Password() {
                                     <Button
                                         disabled={processing}
                                         data-test="update-password-button"
+                                        className="bg-linear-to-r cursor-pointer from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                     >
-                                        Save password
+                                        🔒 Save password
                                     </Button>
 
                                     <Transition
@@ -131,8 +132,8 @@ export default function Password() {
                                         leave="transition ease-in-out"
                                         leaveTo="opacity-0"
                                     >
-                                        <p className="text-sm text-neutral-600">
-                                            Saved
+                                        <p className="text-sm font-medium text-green-600 dark:text-green-400">
+                                            ✨ Saved
                                         </p>
                                     </Transition>
                                 </div>

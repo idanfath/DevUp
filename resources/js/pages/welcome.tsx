@@ -220,9 +220,6 @@ export default function Welcome() {
                 {/* Navigation */}
                 <nav className="relative z-10 px-6 py-6 flex justify-between items-center max-w-7xl mx-auto">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="bg-linear-to-br from-yellow-400 to-orange-500 p-2.5 rounded-xl rotate-6 shadow-lg">
-                            <Code2 className="w-7 h-7 text-white -rotate-6" />
-                        </div>
                         <span className="text-3xl font-black tracking-tight">
                             Dev<span className="text-yellow-400">Up</span>
                         </span>
