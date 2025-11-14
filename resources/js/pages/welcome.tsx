@@ -1,4 +1,4 @@
-import { dashboard, login, register } from '@/routes';
+import { dashboard, lobby, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
@@ -37,7 +37,7 @@ const GradientButton = ({ href, children, className = '', size = 'md' }: Gradien
     return (
         <Link
             href={href}
-            className={`inline-flex items-center gap-2 text-white bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 rounded-2xl font-bold transition-all hover:scale-105 shadow-2xl ${sizeClasses[size]} ${className}`}
+            className={`inline-flex items-center gap-2 text-white bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 rounded-2xl font-bold transition-all hover:scale-105 shadow-2xl ${sizeClasses[size]} ${className}`}
         >
             {children}
         </Link>
@@ -86,7 +86,7 @@ const StepCard = ({ num, icon: Icon, title, description, showArrow }: StepCardPr
                 <p className="text-gray-300 text-sm">{description}</p>
             </div>
             {showArrow && (
-                <div className="hidden md:block absolute top-1/2 -right-8 w-8 h-0.5 bg-gradient-to-l from-yellow-400/50 to-transparent"></div>
+                <div className="hidden md:block absolute top-1/2 -right-8 w-8 h-0.5 bg-linear-to-l from-yellow-400/50 to-transparent"></div>
             )}
         </div>
     );
@@ -231,10 +231,10 @@ export default function Welcome() {
                     <div className="flex items-center gap-3">
                         {auth.user ? (
                             <Link
-                                href={dashboard()}
+                                href={auth.user.role == 'admin' ? dashboard() : lobby()}
                                 className="px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl font-semibold transition-all hover:scale-105"
                             >
-                                Dashboard
+                                {auth.user.role == 'admin' ? 'Dashboard' : 'Lobby'}
                             </Link>
                         ) : (
                             <>
@@ -275,7 +275,7 @@ export default function Welcome() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <GradientButton href={auth.user ? dashboard() : login()} className="group">
+                            <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : lobby()) : login()} className="group">
                                 <Play className="w-5 h-5" />
                                 Start Playing
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -319,7 +319,7 @@ export default function Welcome() {
                             Join ribuan developers yang udah improve skill mereka.
                             Coding nggak harus boring, bisa fun kok! 🎮
                         </p>
-                        <GradientButton href={auth.user ? dashboard() : login()} size="lg">
+                        <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : lobby()) : login()} size="lg">
                             <Play className="w-6 h-6" />
                             Start Your Journey
                             <ArrowRight className="w-6 h-6" />
