@@ -84,7 +84,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                                         <Button
                                             type="submit"
-                                            className=" w-full cursor-pointer bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-6 rounded-xl transition-all hover:scale-105 shadow-lg text-base"
+                                            className=" w-full cursor-pointer bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-6 rounded-xl transition-all hover:scale-105 shadow-lg text-base"
                                             disabled={processing}
                                             data-test="email-password-reset-link-button"
                                         >
