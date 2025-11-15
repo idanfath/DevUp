@@ -51,7 +51,7 @@ export default function TwoFactor({
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded-lg">✅ Enabled</Badge>
+                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-semibold  py-1 rounded-lg">Enabled</Badge>
                             <p className="text-gray-600 dark:text-gray-400">
                                 With two-factor authentication enabled, you will
                                 be prompted for a secure, random pin during
@@ -82,7 +82,7 @@ export default function TwoFactor({
                         </div>
                     ) : (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge className="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded-lg">❌ Disabled</Badge>
+                            <Badge className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 rounded-lg">Disabled</Badge>
                             <p className="text-gray-600 dark:text-gray-400">
                                 When you enable two-factor authentication, you
                                 will be prompted for a secure pin during login.

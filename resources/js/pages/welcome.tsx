@@ -260,7 +260,7 @@ export default function Welcome() {
                         <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
                             Code. Compete.
                             <br />
-                            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 text-transparent bg-clip-text">
+                            <span className="bg-linear-to-r from-yellow-400 via-orange-500 to-pink-500 text-transparent bg-clip-text">
                                 Level Up!
                             </span>
                             🚀
@@ -308,7 +308,7 @@ export default function Welcome() {
                     </div>
 
                     {/* CTA Section */}
-                    <div className="mt-32 bg-gradient-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-sm border border-white/20 rounded-3xl p-12 text-center">
+                    <div className="mt-32 bg-linear-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-sm border border-white/20 rounded-3xl p-12 text-center">
                         <h2 className="text-4xl md:text-5xl font-black mb-4">
                             Ready to <span className="text-yellow-400">Level Up?</span>
                         </h2>

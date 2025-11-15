@@ -15,6 +15,7 @@ import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
+import userManagement from '@/routes/userManagement';
 
 
 
@@ -30,6 +31,11 @@ export function AppSidebar() {
             href: dashboard(),
             icon: LayoutGrid,
         },
+        {
+            title: 'User Management',
+            href: userManagement.index(),
+            icon: BookOpen,
+        }
     ] : [
         {
             title: 'Lobby',

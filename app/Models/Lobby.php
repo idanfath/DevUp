@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lobby extends Model
 {
-    //
+    protected $guarded = [
+        'id',
+    ];
 }
