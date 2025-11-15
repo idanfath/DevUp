@@ -17,10 +17,11 @@ return new class extends Migration
             $table->integer('round_number');
             $table->string('question');
             $table->string('type'); // tipe soal
-            $table->string('host_score_increase');
-            $table->string('guest_score_increase');
-            $table->string('host_explanation');
-            $table->string('guest_explanation');
+            $table->text('initial_code')->nullable();
+            $table->text('user_code')->nullable();
+            $table->integer('score')->default(0);
+            $table->text('evaluation')->nullable();
+            $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -10,15 +10,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, lobby } from '@/routes';
+import { dashboard } from '@/routes';
 import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, LayoutGrid, Home, Play, History } from 'lucide-react';
 import AppLogo from './app-logo';
 import userManagement from '@/routes/userManagement';
-import promptManagement from '@/routes/promptManagement';
-
-
 
 const footerNavItems: NavItem[] = [
 ];
@@ -37,21 +34,26 @@ export function AppSidebar() {
             href: userManagement.index(),
             icon: BookOpen,
         },
-        {
-            title: "Prompt Management",
-            href: promptManagement.index(),
-            icon: Folder,
-        }
     ] : [
         {
-            title: 'Lobby',
-            href: lobby(),
-            icon: LayoutGrid,
+            title: 'Dashboard',
+            href: '/lobby',
+            icon: Home,
+        },
+        {
+            title: 'Start Challenge',
+            href: '/game/configure',
+            icon: Play,
+        },
+        {
+            title: 'Game History',
+            href: '/game/history',
+            icon: History,
         }
     ];
 
     return (
-        <Sidebar collapsible="icon" variant="inset" className="bg-linear-to-br from-purple-100 via-pink-100 to-blue-100 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900">
+        <Sidebar collapsible="icon" variant="inset" className="bg-linear-to-br  ">
             <SidebarContent className='mt-2'>
                 <NavMain items={mainNavItems} />
             </SidebarContent>

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prompts', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->text('challenge_prompt');
-            $table->text('scoring_prompt');
+        Schema::table('histories', function (Blueprint $table) {
+            $table->foreignId('winner_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -25,6 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prompts');
+        Schema::table('histories', function (Blueprint $table) {
+            $table->dropForeign(['winner_id']);
+            $table->dropColumn(['winner_id']);
+            $table->dropTimestamps();
+        });
     }
 };

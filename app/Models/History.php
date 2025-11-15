@@ -10,12 +10,14 @@ class History extends Model
         'id',
     ];
 
-    public function host()
-    {
-        return $this->belongsTo(User::class);
-    }
+    public $timestamps = true;
 
-    public function guest()
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

@@ -1,4 +1,4 @@
-import { dashboard, lobby, login, register } from '@/routes';
+import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { type ReactNode } from 'react';
 import '@/../../resources/css/animations.css';
+import AppLogo from '@/components/app-logo';
 
 // Reusable Components
 interface GradientButtonProps {
@@ -135,7 +136,7 @@ export default function Welcome() {
         {
             icon: Bug,
             title: 'Debug Challenge',
-            description: 'Temukan bug dan fix code yang error. Race against time dan opponent kamu!',
+            description: 'Temukan bug dan fix code yang error. Race against time untuk score terbaik!',
             gradientFrom: 'from-purple-500',
             gradientTo: 'to-pink-500'
         },
@@ -155,15 +156,15 @@ export default function Welcome() {
         },
         {
             icon: Users,
-            title: 'Multiplayer Lobby',
-            description: 'Create room atau join teman. Battle real-time, makin seru!',
+            title: 'Practice Mode',
+            description: 'Latihan coding dengan berbagai challenge. Improve skill kamu!',
             gradientFrom: 'from-green-500',
             gradientTo: 'to-emerald-500'
         },
         {
             icon: Zap,
-            title: 'Multi-Round Battle',
-            description: 'Best of 3? Best of 5? You decide! Makin banyak ronde, makin panas!',
+            title: 'Multi-Round Challenges',
+            description: '1, 3, 5, atau 7 rounds? You decide! Makin banyak ronde, makin seru!',
             gradientFrom: 'from-red-500',
             gradientTo: 'to-rose-500'
         },
@@ -180,8 +181,8 @@ export default function Welcome() {
         {
             num: '1',
             icon: GamepadIcon,
-            title: 'Create/Join Lobby',
-            desc: 'Bikin room sendiri atau join battle yang udah ada'
+            title: 'Configure Game',
+            desc: 'Pilih bahasa, difficulty, dan jumlah rounds'
         },
         {
             num: '2',
@@ -192,14 +193,14 @@ export default function Welcome() {
         {
             num: '3',
             icon: Trophy,
-            title: 'Code & Compete',
-            desc: 'Race against opponent, submit solution secepat mungkin!'
+            title: 'Code & Solve',
+            desc: 'Race against time, submit solution secepat dan seakurat mungkin!'
         },
         {
             num: '4',
             icon: Sparkles,
             title: 'Get Feedback',
-            desc: 'AI kasih score + penjelasan. Belajar dari setiap battle!'
+            desc: 'AI kasih score + penjelasan. Belajar dari setiap challenge!'
         }
     ];
 
@@ -220,18 +221,19 @@ export default function Welcome() {
                 {/* Navigation */}
                 <nav className="relative z-10 px-6 py-6 flex justify-between items-center max-w-7xl mx-auto">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="text-3xl font-black tracking-tight">
+                        {/* <span className="text-3xl font-black tracking-tight">
                             Dev<span className="text-yellow-400">Up</span>
-                        </span>
+                        </span> */}
+                        <AppLogo theme="light" />
                     </Link>
 
                     <div className="flex items-center gap-3">
                         {auth.user ? (
                             <Link
-                                href={auth.user.role == 'admin' ? dashboard() : lobby()}
+                                href={auth.user.role == 'admin' ? dashboard() : '/game/configure'}
                                 className="px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl font-semibold transition-all hover:scale-105"
                             >
-                                {auth.user.role == 'admin' ? 'Dashboard' : 'Lobby'}
+                                {auth.user.role == 'admin' ? 'Dashboard' : 'Start Game'}
                             </Link>
                         ) : (
                             <>
@@ -267,12 +269,12 @@ export default function Welcome() {
                         </h1>
 
                         <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-                            Asah skill coding kamu lewat battle seru! Debug, solve, dan compete.
+                            Asah skill coding kamu lewat challenges seru! Debug, solve, dan improve.
                             Nikmati pengalaman belajar <span className="text-yellow-400 font-bold">interaktif dan seru!</span>
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : lobby()) : login()} className="group">
+                            <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : '/game/configure') : login()} className="group">
                                 <Play className="w-5 h-5" />
                                 Start Playing
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -316,7 +318,7 @@ export default function Welcome() {
                             Join ribuan developers yang udah improve skill mereka.
                             Coding nggak harus boring, bisa fun kok! 🎮
                         </p>
-                        <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : lobby()) : login()} size="lg">
+                        <GradientButton href={auth.user ? (auth.user.role == 'admin' ? dashboard() : '/game/configure') : login()} size="lg">
                             <Play className="w-6 h-6" />
                             Start Your Journey
                             <ArrowRight className="w-6 h-6" />

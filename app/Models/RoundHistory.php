@@ -10,6 +10,11 @@ class RoundHistory extends Model
         'id',
     ];
 
+    protected $casts = [
+        'submitted_at' => 'datetime',
+        'round_start_time' => 'datetime',
+    ];
+
     public function history()
     {
         return $this->belongsTo(History::class);

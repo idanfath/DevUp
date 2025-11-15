@@ -22,10 +22,8 @@ return new class extends Migration
             $table->string('profile_path')->nullable();
             $table->string('bio')->nullable();
             $table->json('socials')->nullable();
-            $table->integer('experience')->default(0);
             $table->integer('total_matches')->default(0);
             $table->integer('wins')->default(0);
-            $table->integer('current_streak')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
