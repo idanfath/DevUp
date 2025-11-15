@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('nickname')->nullable();
             $table->string('profile_path')->nullable();
             $table->string('bio')->nullable();
-            $table->json('socials')->nullable();
+            $table->json('socials')->nullable(); // not needed, delete later
             $table->integer('total_matches')->default(0);
-            $table->integer('wins')->default(0);
+            $table->integer('wins')->default(0); // not needed, delete later
             $table->rememberToken();
             $table->timestamps();
         });

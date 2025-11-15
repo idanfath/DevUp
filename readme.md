@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="public/logo2.svg" alt="DevUp Logo"  height="120">
+  <img src="public/logo2.svg" alt="DevUp Logo" height="120">
 
   # DevUp
 
-  ### 🎮 AI-Powered Competitive Coding Arena
+  ### 🎮 Platform Tantangan Coding Berbasis AI
 
-  **Code. Compete. Level Up!**
+  **Coding. Belajar. Kuasai Kemampuanmu!**
 
   [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat&logo=laravel)](https://laravel.com)
   [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=flat&logo=react)](https://reactjs.org)
@@ -13,108 +13,145 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
   [![Inertia.js](https://img.shields.io/badge/Inertia.js-2.1-9553E9?style=flat)](https://inertiajs.com)
 
-  [Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Tech Stack](#-tech-stack) • [Documentation](#-documentation)
+  [Fitur](#-fitur) • [Instalasi](#-instalasi) • [Tech Stack](#-tech-stack) • [Penggunaan](#-cara-kerja)
 
 </div>
 
 ---
 
-## 🚀 **IMPLEMENTATION COMPLETE!**
+## ⚡ Mulai Cepat
 
-> **✅ The full DevUp platform with AI-powered evaluation is now ready to use!**
-
-### 📚 **Quick Links:**
-- **[⚡ NEXT_STEPS.md](NEXT_STEPS.md)** - What you need to do RIGHT NOW (10 minutes)
-- **[🏃 QUICKSTART.md](QUICKSTART.md)** - 5-minute setup guide
-- **[📖 IMPLEMENTATION.md](IMPLEMENTATION.md)** - Complete technical documentation
-- **[✅ CHECKLIST.md](CHECKLIST.md)** - Testing and verification guide
-- **[🏗️ ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture & flow diagrams
-
-### ⚡ **To Get Started:**
 ```bash
-# 1. Add your Gemini API key to .env
-GEMINI_API_KEY=your_key_here
+# 1. Clone dan install
+git clone https://github.com/idanfath/DevUp.git
+cd DevUp
+composer install && npm install
 
-# 2. Run these commands:
-php artisan migrate
-php artisan db:seed --class=PromptSeeder
+# 2. Konfigurasi environment
+cp .env.example .env
+php artisan key:generate
+
+# 3. Tambahkan Groq API key ke .env
+GROQ_API_KEY=your_api_key_here
+
+# 4. Setup database
+php artisan migrate --seed
+
+# 5. Build dan jalankan
 npm run build
 php artisan serve
 ```
 
-**That's it!** Visit http://localhost:8000 and start battling! 🎮
+**Selesai!** Kunjungi http://localhost:8000 dan mulai coding! 🎮
 
 ---
 
-## 📖 About
+## 📖 Tentang
 
-**DevUp** is an innovative gamified learning platform designed to sharpen programming skills through structured competitive coding challenges. Built for **Sevent 9.0** under the theme **"Game, Code, and Play – Sharpening Creativity and Skills in the Arena of Competition"** with the subtheme **"AI for New Opportunities"**.
+**DevUp** adalah platform tantangan coding berbasis AI yang dirancang untuk membantu developer meningkatkan kemampuan programming melalui tantangan terstruktur dan gamifikasi. Dibangun untuk **Sevent 9.0** dengan tema **"Game, Code, and Play – Sharpening Creativity and Skills in the Arena of Competition"** dan subtema **"AI for New Opportunities"**.
 
-DevUp leverages **Artificial Intelligence** as an intelligent evaluator to validate and score code solutions objectively. The platform enables users to create private lobbies, invite friends, and compete in real-time coding battles across multiple programming languages.
+DevUp menggunakan **Groq AI (Llama 3.3 70B)** untuk menghasilkan tantangan coding yang unik dan memberikan feedback yang cerdas dan detail terhadap solusi yang dikirimkan. Platform ini mendukung berbagai bahasa pemrograman dan menawarkan dua jenis tantangan berbeda untuk menguji berbagai aspek kemampuan coding.
 
-### 🎯 Vision
+### 🎯 Visi
 
-Transform coding education into an engaging, competitive, and interactive experience where developers of all levels can improve their skills through peer competition and AI-powered feedback.
+Mengubah pendidikan coding menjadi pengalaman belajar yang menarik dan personal dimana developer dapat berlatih, meningkatkan kemampuan, dan menguasai skill programming melalui tantangan yang dihasilkan AI dan feedback yang komprehensif.
 
 ---
 
-## ✨ Features
+## ✨ Fitur
 
-### 🤖 **AI-Powered Evaluation**
-- Intelligent code validation and scoring
-- Real-time feedback on code quality, functionality, and efficiency
-- Comprehensive error analysis and solution suggestions
-- Automated learning insights after each round
+### 🤖 **Generasi Tantangan Berbasis AI**
+- Generasi tantangan dinamis menggunakan Groq AI (Llama 3.3 70B)
+- Kalibrasi tingkat kesulitan yang cerdas (Mudah, Sedang, Sulit)
+- Sistem variasi mencegah masalah berulang
+- Generasi masalah yang sadar konteks berdasarkan riwayat terkini
 
-### 🎮 **Competitive Multiplayer**
-- **Create Lobbies**: Host private rooms with custom invite codes
-- **Join Battles**: Enter existing lobbies and challenge friends
-- **Real-time Matches**: Live 1v1 coding competitions
-- **Multi-round System**: Customizable match formats (Best of 3, 5, etc.)
+### 🎯 **Evaluasi AI Komprehensif**
+- Sistem penilaian multi-kriteria:
+  - **Kebenaran** (50 poin): Akurasi solusi dan penanganan edge case
+  - **Kualitas Kode** (30 poin): Keterbacaan, struktur, dan best practices
+  - **Efisiensi** (20 poin): Optimasi algoritma dan performa
+- Feedback detail dengan saran perbaikan spesifik
+- Solusi yang disarankan disediakan untuk pembelajaran
+- Penjelasan untuk keputusan penilaian
 
-### 🐛 **Dual Challenge Modes**
-1. **Debug Challenge**: Fix broken code with hidden errors
-2. **Problem Solving**: Build solutions from scratch
+### 🐛 **Dua Mode Tantangan**
+1. **Debug Challenge**: Temukan dan perbaiki bug dalam kode yang rusak
+   - Error syntax dan logic yang realistis
+   - Tingkat kesulitan progresif
+   - Sistem hints untuk panduan
+   - Contoh output yang diharapkan
+2. **Problem Solving**: Tulis solusi dari awal
+   - Template kode awal
+   - Contoh input/output
+   - Batasan dan persyaratan
+   - Function signature disediakan
 
-### 🌐 **Multi-Language Support**
-- Choose your preferred programming language
-- Random language selection for adaptability challenges
-- Support for popular languages (Python, JavaScript, Java, C++, etc.)
+### 🌐 **Dukungan Multi-Bahasa**
+Mendukung 10+ bahasa pemrograman:
+- Python
+- JavaScript
+- TypeScript
+- Java
+- C++
+- C#
+- Go
+- Rust
+- PHP
+- Ruby
 
-### 📊 **Gamification & Progression**
-- **Experience Points (XP)**: Earn XP from every match
-- **Win/Loss Tracking**: Comprehensive statistics dashboard
-- **Streak System**: Build and maintain winning streaks
-- **Profile Customization**: Personalize your developer profile
+### 🎮 **Sistem Gaming Solo**
+- Sesi game yang dapat dikustomisasi (1-7 ronde)
+- Pilih tingkat kesulitan Anda
+- Pilih preferensi tipe tantangan
+- Lacak progres di seluruh ronde
+- Update skor real-time
+- Lihat hasil game komprehensif dengan rincian detail
 
-### 🎨 **Modern UI/UX**
-- Beautiful glassmorphism design
-- Smooth animations with Tailwind CSS
-- Dark mode optimized
-- Fully responsive (Mobile, Tablet, Desktop)
-- Accessibility-first approach
+### 📊 **Statistik & Progres**
+- Total pertandingan yang dimainkan
+- Pelacakan tingkat kemenangan (game dengan skor 600+ poin)
+- Rata-rata skor per game
+- Bahasa pemrograman yang paling sering digunakan
+- Riwayat game lengkap dengan filter
+- Analisis performa ronde individual
 
-### 🔐 **Authentication & Security**
-- Secure authentication with Laravel Fortify
-- Two-Factor Authentication (2FA)
-- Email verification
-- Password reset functionality
-- Session management
+### 👤 **Profil Pengguna**
+- Nickname yang dapat dikustomisasi
+- Upload foto profil
+- Dashboard statistik personal
+- Ringkasan riwayat pertandingan
+
+### 👨‍💼 **Dashboard Admin**
+- Ringkasan statistik platform
+- Sistem manajemen user (buat, edit, hapus user)
+- Distribusi tipe game dan tingkat kesulitan
+- Pelacakan popularitas bahasa
+- Leaderboard top performers
+- Monitoring aktivitas game terkini
+- Lihat hasil game user manapun
+
+### 🎨 **UI/UX Modern**
+- Desain bersih dan profesional dengan komponen shadcn/ui
+- Integrasi Monaco Editor (editor VS Code)
+- Layout responsif (Mobile, Tablet, Desktop)
+- Tampilan feedback real-time
+- Transisi halaman yang mulus dengan Inertia.js
+- Loading states dan error handling
+
+### 🔐 **Autentikasi & Keamanan**
+- Autentikasi aman dengan Laravel Fortify
+- Dukungan Two-Factor Authentication (2FA)
+- Verifikasi email
+- Fungsi reset password
+- Kontrol akses berbasis role (Admin/User)
+- Manajemen sesi
 
 ---
 
 ## 🚀 Demo
 
-> **Note**: Demo link will be available soon.
-
-### Screenshots
-
-<!-- <div align="center">
-    <img src="docs/screenshots/welcome.png" alt="Welcome Page" width="45%">
-    <img src="docs/screenshots/lobby.png" alt="Lobby System" width="45%">
-    <img src="docs/screenshots/battle.png" alt="Code Battle" width="45%">
-</div> -->
-> **Note**: Screenshots will be available soon.
+> **Catatan**: Link demo akan segera tersedia.
 
 ---
 
@@ -122,60 +159,67 @@ Transform coding education into an engaging, competitive, and interactive experi
 
 ### **Backend**
 - **Framework**: Laravel 12.x (PHP 8.2+)
-- **Authentication**: Laravel Fortify
+- **Autentikasi**: Laravel Fortify
 - **Database**: MySQL/PostgreSQL/SQLite
-- **Queue**: Redis (optional)
-- **Cache**: Redis/Memcached (optional)
+- **Integrasi AI**: Groq API (Llama 3.3 70B Versatile)
+- **Testing**: Pest PHP
 
 ### **Frontend**
 - **UI Framework**: React 19.x
-- **Language**: TypeScript 5.7
-- **Routing**: Inertia.js 2.1
+- **Bahasa**: TypeScript 5.7
+- **Routing**: Inertia.js 2.1 (dengan Laravel Wayfinder)
 - **Styling**: Tailwind CSS 4.0
-- **Components**: Radix UI, Headless UI
+- **Komponen**: Radix UI, shadcn/ui
+- **Code Editor**: Monaco Editor (@monaco-editor/react)
 - **Icons**: Lucide React
 - **Build Tool**: Vite 7.x
 
 ### **Development Tools**
-- **Code Quality**: ESLint, Prettier
-- **Testing**: Pest PHP, React Testing Library
+- **Kualitas Kode**: ESLint, Prettier
+- **Testing**: Pest PHP
 - **Version Control**: Git
 - **Package Managers**: Composer, npm/pnpm
 
 ---
 
-## 📦 Installation
+## 📦 Instalasi
 
-### Prerequisites
+### Prasyarat
 
 - PHP >= 8.2
 - Composer
 - Node.js >= 20.x
 - npm/pnpm
-- MySQL/PostgreSQL (or SQLite for development)
+- MySQL/PostgreSQL (atau SQLite untuk development)
+- Groq API Key ([Dapatkan di sini](https://console.groq.com))
 
-### Quick Setup
+### Panduan Setup Lengkap
 
 ```bash
-# 1. Clone the repository
+# 1. Clone repository
 git clone https://github.com/idanfath/DevUp.git
 cd DevUp
 
-# 2. Install PHP dependencies
+# 2. Install dependensi PHP
 composer install
 
-# 3. Install JavaScript dependencies
+# 3. Install dependensi JavaScript
 npm install
-# or using pnpm
+# atau menggunakan pnpm
 pnpm install
 
-# 4. Copy environment file
+# 4. Copy file environment
 cp .env.example .env
 
 # 5. Generate application key
 php artisan key:generate
 
-# 6. Configure your database in .env
+# 6. Konfigurasi database di .env
+# Untuk SQLite (development):
+DB_CONNECTION=sqlite
+# DB_DATABASE=/absolute/path/to/database.sqlite
+
+# Untuk MySQL:
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
@@ -183,242 +227,248 @@ php artisan key:generate
 # DB_USERNAME=root
 # DB_PASSWORD=
 
-# 7. Run migrations
+# 7. Tambahkan Groq API key ke .env
+GROQ_API_KEY=your_groq_api_key_here
+
+# 8. Buat database (SQLite)
+touch database/database.sqlite
+
+# 9. Jalankan migrations
 php artisan migrate
 
-# 8. (Optional) Seed database with sample data
+# 10. Seed database dengan default admin user
 php artisan db:seed
 
-# 9. Build assets
+# 11. Build frontend assets
 npm run build
 
-# 10. Start development server
-npm run dev
-# or using composer script (runs Laravel server + Vite + Queue)
-composer dev
+# 12. Jalankan development server
+php artisan serve
 ```
 
-### 🚀 Production Deployment
+### Kredensial Admin Default
+```
+Email: admin@example.com
+Password: password
+```
+
+### Mode Development
 
 ```bash
-# Build for production
-npm run build
+# Jalankan semua service (Laravel, Vite, Queue) bersamaan
+composer dev
 
-# Optimize Laravel
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Run migrations
-php artisan migrate --force
-
-# Start queue worker (if using queues)
-php artisan queue:work
+# Atau manual:
+php artisan serve          # Terminal 1
+npm run dev                # Terminal 2
+php artisan queue:listen   # Terminal 3 (opsional)
 ```
 
 ---
 
-## 📂 Project Structure
+## 🎮 Cara Kerja
+
+### 1. **Daftar / Login**
+- Buat akun baru atau login dengan kredensial yang ada
+- Admin diarahkan ke dashboard, user ke lobby
+
+### 2. **Konfigurasi Game**
+- Pilih bahasa pemrograman (Python, JavaScript, dll.)
+- Pilih tingkat kesulitan (Mudah, Sedang, Sulit)
+- Pilih tipe tantangan (Debug atau Problem Solving)
+- Tentukan jumlah ronde (1-7)
+
+### 3. **Mainkan Ronde**
+- AI menghasilkan tantangan unik berdasarkan pengaturan Anda
+- Sistem variasi memastikan tidak ada masalah berulang
+- Tulis solusi Anda di Monaco Editor
+- Submit kode untuk evaluasi
+
+### 4. **Evaluasi AI**
+- **Kebenaran**: Menguji solusi terhadap persyaratan
+- **Kualitas Kode**: Menganalisis keterbacaan dan best practices
+- **Efisiensi**: Mengevaluasi performa algoritma
+- Terima skor (0-100) dan feedback detail
+- Lihat solusi optimal yang disarankan
+
+### 5. **Lanjut ke Ronde Berikutnya**
+- Progres otomatis setelah 3 detik
+- Pelacakan skor kumulatif
+- Halaman hasil akhir dengan rincian komprehensif
+- Lihat performa ronde individual
+
+### 6. **Lacak Progres**
+- Lihat riwayat game
+- Analisis tren performa
+- Cek dashboard statistik
+- Review solusi dan feedback masa lalu
+
+---
+
+## 📂 Struktur Project
 
 ```
 DevUp/
-├── app/                          # Laravel application code
-│   ├── Actions/                  # Fortify actions (auth logic)
-│   ├── Http/                     # Controllers, Middleware, Requests
-│   ├── Models/                   # Eloquent models (User, Lobby, etc.)
-│   └── Providers/                # Service providers
-├── config/                       # Configuration files
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── DashboardController.php    # Admin analytics
+│   │       ├── GameController.php         # Logika game
+│   │       ├── LobbyController.php        # Lobby user
+│   │       └── UserManagementController.php # Manajemen user admin
+│   ├── Models/
+│   │   ├── History.php                    # Sesi game
+│   │   ├── RoundHistory.php              # Ronde individual
+│   │   └── User.php                       # Akun user
+│   └── Services/
+│       └── GroqService.php               # Integrasi AI
 ├── database/
-│   ├── migrations/               # Database migrations
-│   ├── seeders/                  # Database seeders
-│   └── factories/                # Model factories
+│   ├── migrations/                        # Skema database
+│   └── seeders/
+│       └── DatabaseSeeder.php            # Default admin user
 ├── resources/
-│   ├── css/                      # Global styles
-│   │   └── animations.css        # Custom animations
+│   ├── css/
+│   │   └── app.css                       # Style global
 │   └── js/
-│       ├── actions/              # Wayfinder actions
-│       ├── components/           # React components
-│       ├── hooks/                # Custom React hooks
-│       ├── layouts/              # Page layouts
-│       ├── pages/                # Inertia pages
-│       │   ├── auth/            # Authentication pages
-│       │   └── welcome.tsx      # Landing page
-│       ├── routes/              # Route definitions (Wayfinder)
-│       ├── types/               # TypeScript type definitions
-│       └── app.tsx              # React entry point
+│       ├── components/
+│       │   └── ui/                       # Komponen shadcn/ui
+│       ├── layouts/
+│       │   └── app-layout.tsx           # Layout utama
+│       ├── pages/
+│       │   ├── auth/                    # Halaman autentikasi
+│       │   ├── game/
+│       │   │   ├── arena.tsx            # Arena game
+│       │   │   ├── configure.tsx        # Setup game
+│       │   │   ├── history.tsx          # Riwayat game
+│       │   │   └── results.tsx          # Hasil game
+│       │   ├── dashboard.tsx            # Dashboard admin
+│       │   ├── lobby.tsx                # Lobby user
+│       │   └── welcome.tsx              # Landing page
+│       └── types/
+│           └── index.d.ts               # Definisi TypeScript
 ├── routes/
-│   ├── web.php                  # Web routes
-│   └── console.php              # Console commands
-├── tests/                       # Application tests (Pest)
-├── public/                      # Public assets
-├── vendor/                      # Composer dependencies
-├── node_modules/                # npm dependencies
-├── .env.example                 # Environment template
-├── composer.json                # PHP dependencies
-├── package.json                 # Node dependencies
-├── tailwind.config.js           # Tailwind configuration
-├── tsconfig.json               # TypeScript configuration
-└── vite.config.ts              # Vite configuration
+│   ├── web.php                          # Route aplikasi
+│   └── settings.php                     # Route pengaturan user
+├── .env.example                         # Template environment
+├── composer.json                        # Dependensi PHP
+├── package.json                         # Dependensi Node
+└── README.md                            # File ini
 ```
 
 ---
 
-## 🗄️ Database Schema
+## 🗄️ Skema Database
 
-### Core Tables
+### Tabel Utama
 
-```mermaid
-erDiagram
-    users ||--o{ lobbies_host : "hosts"
-    users ||--o{ lobbies_guest : "guests"
-    users ||--o{ histories_host : "hosts"
-    users ||--o{ histories_guest : "guests"
-    histories ||--o{ round_histories : "contains"
+#### **users**
+- `id`: Primary key
+- `username`: Username unik
+- `email`: Alamat email unik
+- `password`: Password ter-hash
+- `role`: admin|user (enum)
+- `nickname`: Nama tampilan
+- `profile_path`: Path foto profil
+- `bio`: Bio user
+- `total_matches`: Jumlah game yang diselesaikan
 
-    users {
-        bigint id PK
-        string username UK
-        enum role
-        string email UK
-        string password
-        string nickname
-        string profile_path
-        text bio
-        json socials
-        integer experience
-        integer total_matches
-        integer wins
-        integer current_streak
-    }
+#### **histories**
+- `id`: Primary key
+- `user_id`: Foreign key ke users
+- `language`: Bahasa pemrograman yang digunakan
+- `difficulty`: easy|medium|hard
+- `gametype`: debug|problem-solving
+- `round`: Jumlah ronde
+- `total_score`: Skor kumulatif
+- `start_time`: Timestamp mulai game
+- `end_time`: Timestamp selesai game
 
-    lobbies {
-        bigint id PK
-        string invite_code UK
-        bigint host_id FK
-        bigint guest_id FK
-        enum status
-    }
-
-    histories {
-        bigint id PK
-        bigint host FK
-        bigint guest FK
-        string language
-        string difficulty
-        timestamp start_time
-        timestamp end_time
-        integer host_score
-        integer guest_score
-        string gametype
-        integer round
-    }
-
-    round_histories {
-        bigint id PK
-        bigint history_id FK
-        integer round_number
-        text question
-        string type
-        integer host_score_increase
-        integer guest_score_increase
-        text host_explanation
-        text guest_explanation
-    }
-
-    prompts {
-        bigint id PK
-        string type
-        text challenge_prompt
-        text scoring_prompt
-    }
-```
-
----
-
-## 🎮 How It Works
-
-### 1. **Create or Join Lobby**
-- Host creates a private lobby with an invite code
-- Guest joins using the invite code
-- Lobby supports 1v1 matches
-
-### 2. **Configure Match Settings**
-- Select programming language (or random)
-- Choose difficulty level
-- Set number of rounds
-- Pick challenge type (Debug or Problem Solving)
-
-### 3. **Battle Begins**
-- AI generates coding challenges
-- Both players receive identical problems
-- Real-time code submission and evaluation
-- Timer tracks completion speed
-
-### 4. **AI Evaluation**
-- Automated code validation
-- Multi-criteria scoring:
-  - Correctness
-  - Code quality
-  - Execution time
-  - Best practices
-
-### 5. **Learn from Feedback**
-- Detailed explanation of correct solution
-- Analysis of errors in submitted code
-- Performance comparison with opponent
-- Recommendations for improvement
-
-### 6. **Progress & Rankings**
-- Earn experience points
-- Climb leaderboards
-- Track win/loss statistics
-- Maintain winning streaks
+#### **round_histories**
+- `id`: Primary key
+- `history_id`: Foreign key ke histories
+- `round_number`: Nomor urutan ronde
+- `question`: JSON (detail tantangan)
+- `problem_summary`: Deskripsi singkat masalah
+- `type`: Tipe tantangan
+- `initial_code`: Kode awal/buggy
+- `user_code`: Solusi yang dikirimkan
+- `score`: Skor ronde (0-100)
+- `evaluation`: JSON (feedback AI)
+- `submitted_at`: Timestamp pengiriman
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-# Run all tests
+# Jalankan semua test
 composer test
 
-# Run specific test file
+# Jalankan file test spesifik
 php artisan test tests/Feature/Auth/LoginTest.php
 
-# Run with coverage
+# Jalankan dengan coverage
 php artisan test --coverage
 ```
 
 ---
 
-## 🤝 Contributing
+## 🔑 Environment Variables
 
-We welcome contributions! Please follow these steps:
+Variabel environment kunci untuk dikonfigurasi:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```env
+# Aplikasi
+APP_NAME=DevUp
+APP_ENV=local
+APP_KEY=base64:...
+APP_URL=http://localhost
+
+# Database
+DB_CONNECTION=sqlite
+DB_DATABASE=/absolute/path/to/database.sqlite
+
+# Groq AI
+GROQ_API_KEY=your_groq_api_key_here
+
+# Mail (untuk reset password, 2FA)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+```
+
+---
+
+## 🤝 Kontribusi
+
+Kami menerima kontribusi! Silakan ikuti langkah-langkah berikut:
+
+1. Fork repository
+2. Buat feature branch (`git checkout -b feature/FiturKeren`)
+3. Commit perubahan Anda (`git commit -m 'Menambahkan FiturKeren'`)
+4. Push ke branch (`git push origin feature/FiturKeren`)
+5. Buka Pull Request
 
 ### Code Style
 
-- **PHP**: Follow PSR-12 coding standards (enforced by Laravel Pint)
-- **TypeScript**: Follow ESLint configuration
-- **React**: Use functional components with hooks
-- **Commits**: Use conventional commits format
+- **PHP**: Ikuti standar coding PSR-12 (diterapkan oleh Laravel Pint)
+- **TypeScript**: Ikuti konfigurasi ESLint
+- **React**: Gunakan functional components dengan hooks
+- **Commits**: Gunakan format conventional commits
 
 ---
 
-## 📄 License
+## 📄 Lisensi
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Project ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail.
 
 ---
 
-## 👥 Team
+## 👥 Tim
 
-**DevUp** is developed by:
+**DevUp** dikembangkan oleh:
 
 - **Muhammad Zidan Fathurrahman** - Project Lead & Full Stack Developer
 - **Zhafran Atthaurrahman Alezaryan** - UI/UX Designer
@@ -428,16 +478,18 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🙏 Acknowledgments
 
-- Built for **Sevent 9.0** competition
-- Powered by [Laravel](https://laravel.com), [React](https://reactjs.org), and [Inertia.js](https://inertiajs.com)
-- UI components from [Radix UI](https://www.radix-ui.com) and [shadcn/ui](https://ui.shadcn.com)
-- Icons by [Lucide](https://lucide.dev)
+- Dibangun untuk kompetisi **Sevent 9.0**
+- Didukung oleh [Laravel](https://laravel.com), [React](https://reactjs.org), dan [Inertia.js](https://inertiajs.com)
+- Evaluasi AI oleh [Groq](https://groq.com) (Llama 3.3 70B)
+- Komponen UI dari [Radix UI](https://www.radix-ui.com) dan [shadcn/ui](https://ui.shadcn.com)
+- Icons oleh [Lucide](https://lucide.dev)
+- Code editor oleh [Monaco Editor](https://microsoft.github.io/monaco-editor/)
 
 ---
 
-## 📧 Contact
+## 📧 Kontak
 
-For questions, suggestions, or feedback:
+Untuk pertanyaan, saran, atau feedback:
 
 - **Email**: zidanfath72@gmail.com
 - **GitHub**: [@idanfath](https://github.com/idanfath)
@@ -447,8 +499,8 @@ For questions, suggestions, or feedback:
 
 <div align="center">
 
-  **Made with ❤️ for developers who love to compete and learn**
+  **Dibuat dengan ❤️ untuk developer yang suka coding dan belajar**
 
-  ⭐ Star this repo if you find it helpful!
+  ⭐ Star repo ini jika menurut Anda bermanfaat!
 
 </div>
