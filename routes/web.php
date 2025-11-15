@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LobbyController;
 use App\Http\Controllers\PromptManagementController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('prompt-management', PromptManagementController::class)->names('promptManagement')->except(['show']);
     });
     Route::middleware(['role:user'])->group(function () {
-        Route::get('lobby', function () {
-            return Inertia::render('lobby');
-        })->name('lobby');
+        Route::get('lobby', [LobbyController::class, 'index'])->name('lobby');
+        Route::post('lobby/create', [LobbyController::class, 'create'])->name('lobby.create');
+        Route::post('lobby/join', [LobbyController::class, 'join'])->name('lobby.join');
+        Route::post('lobby/leave', [LobbyController::class, 'leave'])->name('lobby.leave');
+        Route::post('lobby/start', [LobbyController::class, 'start'])->name('lobby.start');
     });
 });
 
