@@ -16,6 +16,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
 import userManagement from '@/routes/userManagement';
+import promptManagement from '@/routes/promptManagement';
 
 
 
@@ -35,6 +36,11 @@ export function AppSidebar() {
             title: 'User Management',
             href: userManagement.index(),
             icon: BookOpen,
+        },
+        {
+            title: "Prompt Management",
+            href: promptManagement.index(),
+            icon: Folder,
         }
     ] : [
         {

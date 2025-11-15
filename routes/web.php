@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PromptManagementController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
             return Inertia::render('dashboard');
         })->name('dashboard');
         Route::resource('user-management', UserManagementController::class)->names('userManagement')->except(['show']);
+        Route::resource('prompt-management', PromptManagementController::class)->names('promptManagement')->except(['show']);
     });
     Route::middleware(['role:user'])->group(function () {
         Route::get('lobby', function () {

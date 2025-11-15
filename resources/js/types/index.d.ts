@@ -33,10 +33,16 @@ export interface SharedData {
 export interface User {
     id: number;
     username: string;
-    nickname: string;
-    profile_path: string;
+    nickname: string | null;
+    profile_path: string | null;
     email: string;
     role: "admin" | "user";
+    bio: string | null;
+    socials: Record<string, string> | null;
+    experience: number;
+    total_matches: number;
+    wins: number;
+    current_streak: number;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;

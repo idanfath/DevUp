@@ -3,16 +3,19 @@ import { send } from '@/routes/verification';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { useState, useRef } from 'react';
 
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
-import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
+import { useInitials } from '@/hooks/use-initials';
+import { Upload, X, Camera } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,6 +32,35 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const getInitials = useInitials();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(
+        auth.user.profile_path ? `/storage/${auth.user.profile_path}` : null
+    );
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [removeProfilePicture, setRemoveProfilePicture] = useState(false);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+            setRemoveProfilePicture(false);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleRemovePhoto = () => {
+        setPreviewUrl(null);
+        setSelectedFile(null);
+        setRemoveProfilePicture(true);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -38,7 +70,7 @@ export default function Profile({
                 <div className="space-y-6">
                     <HeadingSmall
                         title="Profile information"
-                        description="Update your name and email address"
+                        description="Update your profile picture, username, and other details"
                     />
 
                     <Form
@@ -50,9 +82,68 @@ export default function Profile({
                     >
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="username">Username</Label>
+                                {/* Profile Picture Section */}
+                                <div className="space-y-3">
+                                    <Label>Profile Picture</Label>
+                                    <div className="flex items-center gap-4">
+                                        <Avatar className="h-24 w-24">
+                                            <AvatarImage
+                                                src={previewUrl || (auth.user.profile_path ? `/storage/${auth.user.profile_path}` : undefined)}
+                                                alt={auth.user.username}
+                                                className='object-cover'
+                                            />
+                                            <AvatarFallback className="text-2xl bg-neutral-200 dark:bg-neutral-700">
+                                                {getInitials(auth.user.nickname || auth.user.username)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className="flex flex-col gap-2">
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                name="profile_picture"
+                                                accept="image/*"
+                                                onChange={handleFileChange}
+                                                className="hidden"
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                disabled={processing}
+                                            >
+                                                <Camera className="mr-2" />
+                                                {previewUrl ? 'Change Photo' : 'Upload Photo'}
+                                            </Button>
+                                            {previewUrl && (
+                                                <Button
+                                                    type="button"
+                                                    variant="destructive"
+                                                    size="sm"
+                                                    onClick={handleRemovePhoto}
+                                                    disabled={processing}
+                                                >
+                                                    <X className="mr-2" />
+                                                    Remove Photo
+                                                </Button>
+                                            )}
+                                            <input
+                                                type="hidden"
+                                                name="remove_profile_picture"
+                                                value={removeProfilePicture ? '1' : '0'}
+                                            />
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground">
+                                        JPG, PNG or GIF. Max size 2MB.
+                                    </p>
+                                    {errors.profile_picture && (
+                                        <p className="text-sm text-destructive">{errors.profile_picture}</p>
+                                    )}
+                                </div>
 
+                                <div className="grid gap-2">
+                                    <Label htmlFor="username">Username <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="username"
                                         className="mt-1 block w-full"
@@ -61,17 +152,31 @@ export default function Profile({
                                         required
                                         autoComplete="username"
                                         placeholder="Username"
+                                        aria-invalid={!!errors.username}
                                     />
-
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.username}
-                                    />
+                                    {errors.username && (
+                                        <p className="text-sm text-destructive">{errors.username}</p>
+                                    )}
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="nickname">Nickname</Label>
+                                    <Input
+                                        id="nickname"
+                                        className="mt-1 block w-full"
+                                        defaultValue={auth.user.nickname || ''}
+                                        name="nickname"
+                                        autoComplete="nickname"
+                                        placeholder="Your display name"
+                                        aria-invalid={!!errors.nickname}
+                                    />
+                                    {errors.nickname && (
+                                        <p className="text-sm text-destructive">{errors.nickname}</p>
+                                    )}
+                                </div>
 
+                                <div className="grid gap-2">
+                                    <Label htmlFor="email">Email address <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -79,14 +184,28 @@ export default function Profile({
                                         defaultValue={auth.user.email}
                                         name="email"
                                         required
-                                        autoComplete="username"
+                                        autoComplete="email"
                                         placeholder="Email address"
+                                        aria-invalid={!!errors.email}
                                     />
+                                    {errors.email && (
+                                        <p className="text-sm text-destructive">{errors.email}</p>
+                                    )}
+                                </div>
 
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.email}
+                                <div className="grid gap-2">
+                                    <Label htmlFor="bio">Bio</Label>
+                                    <Input
+                                        id="bio"
+                                        className="mt-1 block w-full"
+                                        defaultValue={auth.user.bio ?? ''}
+                                        name="bio"
+                                        placeholder="Tell us about yourself"
+                                        aria-invalid={!!errors.bio}
                                     />
+                                    {errors.bio && (
+                                        <p className="text-sm text-destructive">{errors.bio}</p>
+                                    )}
                                 </div>
 
                                 {mustVerifyEmail &&
@@ -116,13 +235,21 @@ export default function Profile({
                                         </div>
                                     )}
 
+                                {status === 'profile-updated' && (
+                                    <div className="rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 p-3">
+                                        <p className="text-sm font-medium text-green-600 dark:text-green-400">
+                                            ✨ Profile updated successfully!
+                                        </p>
+                                    </div>
+                                )}
+
                                 <div className="flex items-center gap-4">
                                     <Button
                                         disabled={processing}
                                         data-test="update-profile-button"
                                         className="bg-linear-to-r cursor-pointer from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                     >
-                                        💾 Save
+                                        💾 Save Changes
                                     </Button>
 
                                     <Transition
