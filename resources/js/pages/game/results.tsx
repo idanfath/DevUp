@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { SharedData, type BreadcrumbItem } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +24,7 @@ import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/lobby' },
-    { title: 'Results', href: '/game/results' },
+    { title: 'Hasil', href: '/game/results' },
 ];
 
 interface HistoryData {
@@ -79,6 +79,8 @@ interface Props {
 
 export default function Results({ history, rounds, totalPossibleScore, performance }: Props) {
     const [openRounds, setOpenRounds] = useState<number[]>([]);
+    const { auth } = usePage<SharedData>().props;
+
 
     const toggleRound = (roundId: number) => {
         setOpenRounds((prev) =>
@@ -106,7 +108,7 @@ export default function Results({ history, rounds, totalPossibleScore, performan
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Game Results" />
+            <Head title="Hasil Game" />
             <div className="flex w-full justify-center">
                 <div className="m-4 max-w-5xl w-full space-y-6">
                     <Card className={`border-2 ${getRatingColor(performance.color)}`}>
@@ -115,7 +117,7 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                                 <div className="inline-flex p-4 rounded-full bg-primary/10 mb-2">
                                     <TrophyIcon className="size-16 text-primary" />
                                 </div>
-                                <h1 className="text-4xl font-black">Game Complete!</h1>
+                                <h1 className="text-4xl font-black">Game Selesai!</h1>
                                 <div className="flex items-center justify-center gap-2">
                                     <Badge variant="outline" className={`text-2xl px-6 py-2 ${getRatingColor(performance.color)}`}>
                                         {performance.rating}
@@ -131,9 +133,9 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                             <CardContent className="pt-6">
                                 <div className="text-center">
                                     <StarIcon className="size-8 text-yellow-500 mx-auto mb-2" />
-                                    <p className="text-sm text-muted-foreground">Total Score</p>
+                                    <p className="text-sm text-muted-foreground">Total Skor</p>
                                     <p className="text-3xl font-bold">{history.total_score}</p>
-                                    <p className="text-xs text-muted-foreground">out of {totalPossibleScore}</p>
+                                    <p className="text-xs text-muted-foreground">dari {totalPossibleScore}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -142,9 +144,9 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                             <CardContent className="pt-6">
                                 <div className="text-center">
                                     <TargetIcon className="size-8 text-blue-500 mx-auto mb-2" />
-                                    <p className="text-sm text-muted-foreground">Accuracy</p>
+                                    <p className="text-sm text-muted-foreground">Akurasi</p>
                                     <p className="text-3xl font-bold">{percentage}%</p>
-                                    <p className="text-xs text-muted-foreground">score rate</p>
+                                    <p className="text-xs text-muted-foreground">tingkat skor</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -153,7 +155,7 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                             <CardContent className="pt-6">
                                 <div className="text-center">
                                     <ZapIcon className="size-8 text-purple-500 mx-auto mb-2" />
-                                    <p className="text-sm text-muted-foreground">Rounds</p>
+                                    <p className="text-sm text-muted-foreground">Ronde</p>
                                     <p className="text-3xl font-bold">{history.round}</p>
                                     <p className="text-xs text-muted-foreground capitalize">{history.difficulty}</p>
                                 </div>
@@ -164,9 +166,9 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                             <CardContent className="pt-6">
                                 <div className="text-center">
                                     <ClockIcon className="size-8 text-green-500 mx-auto mb-2" />
-                                    <p className="text-sm text-muted-foreground">Duration</p>
+                                    <p className="text-sm text-muted-foreground">Durasi</p>
                                     <p className="text-3xl font-bold">{duration}</p>
-                                    <p className="text-xs text-muted-foreground">minutes</p>
+                                    <p className="text-xs text-muted-foreground">menit</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -176,10 +178,10 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <CodeIcon className="size-5" />
-                                Round by Round Breakdown
+                                Detail Setiap Ronde
                             </CardTitle>
                             <CardDescription>
-                                View detailed feedback for each round
+                                Lihat feedback detail untuk setiap ronde
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3">
@@ -227,25 +229,25 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                                                             <>
                                                                 {round.evaluation.feedback.correctness && (
                                                                     <div>
-                                                                        <h4 className="font-semibold mb-2 text-blue-600">Correctness:</h4>
+                                                                        <h4 className="font-semibold mb-2 text-blue-600">Ketepatan:</h4>
                                                                         <p className="text-sm text-muted-foreground">{round.evaluation.feedback.correctness}</p>
                                                                     </div>
                                                                 )}
                                                                 {round.evaluation.feedback.quality && (
                                                                     <div>
-                                                                        <h4 className="font-semibold mb-2 text-purple-600">Code Quality:</h4>
+                                                                        <h4 className="font-semibold mb-2 text-purple-600">Kualitas Kode:</h4>
                                                                         <p className="text-sm text-muted-foreground">{round.evaluation.feedback.quality}</p>
                                                                     </div>
                                                                 )}
                                                                 {round.evaluation.feedback.efficiency && (
                                                                     <div>
-                                                                        <h4 className="font-semibold mb-2 text-green-600">Efficiency:</h4>
+                                                                        <h4 className="font-semibold mb-2 text-green-600">Efisiensi:</h4>
                                                                         <p className="text-sm text-muted-foreground">{round.evaluation.feedback.efficiency}</p>
                                                                     </div>
                                                                 )}
                                                                 {round.evaluation.feedback.improvements && round.evaluation.feedback.improvements.length > 0 && (
                                                                     <div>
-                                                                        <h4 className="font-semibold mb-2 text-orange-600">Suggestions for Improvement:</h4>
+                                                                        <h4 className="font-semibold mb-2 text-orange-600">Saran Perbaikan:</h4>
                                                                         <ul className="list-disc list-inside space-y-1">
                                                                             {round.evaluation.feedback.improvements.map((improvement: string, i: number) => (
                                                                                 <li key={i} className="text-sm">{improvement}</li>
@@ -258,14 +260,14 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                                                     </div>
                                                 )}
                                                 <div>
-                                                    <h4 className="font-semibold mb-2">Your Solution:</h4>
+                                                    <h4 className="font-semibold mb-2">Solusi Kamu:</h4>
                                                     <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
                                                         <code>{round.user_code}</code>
                                                     </pre>
                                                 </div>
                                                 {round.evaluation.feedback?.suggested_solution && (
                                                     <div>
-                                                        <h4 className="font-semibold mb-2 text-purple-600">💡 Suggested Optimal Solution:</h4>
+                                                        <h4 className="font-semibold mb-2 text-purple-600">💡 Solusi Optimal yang Disarankan:</h4>
                                                         <pre className="bg-purple-50 dark:bg-purple-950/20 p-4 rounded-lg overflow-x-auto text-sm border border-purple-200 dark:border-purple-800">
                                                             <code>{round.evaluation.feedback?.suggested_solution}</code>
                                                         </pre>
@@ -279,20 +281,24 @@ export default function Results({ history, rounds, totalPossibleScore, performan
                         </CardContent>
                     </Card>
 
-                    <div className="flex gap-4 justify-center">
-                        <Button variant="outline" size="lg" asChild>
-                            <Link href="/">
-                                <HomeIcon className="mr-2" />
-                                Back to Home
-                            </Link>
-                        </Button>
-                        <Button size="lg" asChild>
-                            <Link href="/game/configure">
-                                <PlayIcon className="mr-2" />
-                                Play Again
-                            </Link>
-                        </Button>
-                    </div>
+                    {
+                        auth.user?.role === 'user' && (
+                            <div className="flex gap-4 justify-center">
+                                <Button variant="outline" size="lg" asChild>
+                                    <Link href="/">
+                                        <HomeIcon className="mr-2" />
+                                        Kembali ke Home
+                                    </Link>
+                                </Button>
+                                <Button size="lg" asChild>
+                                    <Link href="/game/configure">
+                                        <PlayIcon className="mr-2" />
+                                        Main Lagi
+                                    </Link>
+                                </Button>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </AppLayout>

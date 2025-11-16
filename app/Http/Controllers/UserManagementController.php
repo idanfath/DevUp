@@ -44,7 +44,7 @@ class UserManagementController extends Controller
 
         User::create($validated);
 
-        return redirect()->route('userManagement.index')->with('success', 'User created successfully.');
+        return redirect()->route('userManagement.index')->with('success', 'Pengguna berhasil dibuat.');
     }
 
     /**
@@ -94,7 +94,7 @@ class UserManagementController extends Controller
 
         $user->update($validated);
 
-        return redirect()->route('userManagement.index')->with('success', 'User updated successfully.');
+        return redirect()->route('userManagement.index')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
     /**
@@ -106,11 +106,11 @@ class UserManagementController extends Controller
 
         // Prevent deleting yourself
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'You cannot delete your own account.');
+            return back()->with('error', 'Kamu tidak bisa menghapus akun sendiri.');
         }
 
         $user->delete();
 
-        return redirect()->route('userManagement.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('userManagement.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 }

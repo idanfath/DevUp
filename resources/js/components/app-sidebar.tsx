@@ -30,7 +30,7 @@ export function AppSidebar() {
             icon: LayoutGrid,
         },
         {
-            title: 'User Management',
+            title: 'Manajemen Pengguna',
             href: userManagement.index(),
             icon: BookOpen,
         },
@@ -41,12 +41,12 @@ export function AppSidebar() {
             icon: Home,
         },
         {
-            title: 'Start Challenge',
+            title: 'Mulai Challenge',
             href: '/game/configure',
             icon: Play,
         },
         {
-            title: 'Game History',
+            title: 'Riwayat Game',
             href: '/game/history',
             icon: History,
         }

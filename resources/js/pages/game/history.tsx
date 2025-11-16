@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/lobby' },
-    { title: 'Game History', href: '/game/history' },
+    { title: 'Riwayat Game', href: '/game/history' },
 ];
 
 interface Game {
@@ -70,7 +70,7 @@ export default function History({ games, pagination }: Props) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Game History" />
+            <Head title="Riwayat Game" />
 
             <div className="flex w-full justify-center">
                 <div className="m-4 max-w-5xl w-full space-y-6">
@@ -78,12 +78,12 @@ export default function History({ games, pagination }: Props) {
                         <CardHeader>
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <CardTitle className="text-2xl">Game History</CardTitle>
-                                    <CardDescription>View all your completed challenges</CardDescription>
+                                    <CardTitle className="text-2xl">Riwayat Game</CardTitle>
+                                    <CardDescription>Lihat semua challenge yang telah diselesaikan</CardDescription>
                                 </div>
                                 <Button variant="outline" asChild>
                                     <Link href="/lobby">
-                                        Back to Dashboard
+                                        Kembali ke Dashboard
                                     </Link>
                                 </Button>
                             </div>
@@ -91,9 +91,9 @@ export default function History({ games, pagination }: Props) {
                         <CardContent>
                             {games.length === 0 ? (
                                 <div className="text-center py-12">
-                                    <p className="text-muted-foreground mb-4">No completed games yet</p>
+                                    <p className="text-muted-foreground mb-4">Belum ada game yang diselesaikan</p>
                                     <Button asChild>
-                                        <Link href="/game/configure">Start Your First Challenge</Link>
+                                        <Link href="/game/configure">Mulai Challenge Pertama</Link>
                                     </Button>
                                 </div>
                             ) : (
@@ -121,7 +121,7 @@ export default function History({ games, pagination }: Props) {
                                                                 {game.gametype === 'debug' ? 'Debug' : 'Problem Solving'}
                                                             </Badge>
                                                             <Badge variant="outline">
-                                                                {game.round} {game.round === 1 ? 'Round' : 'Rounds'}
+                                                                {game.round} Ronde
                                                             </Badge>
                                                         </div>
                                                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -153,9 +153,9 @@ export default function History({ games, pagination }: Props) {
                                     {pagination.last_page > 1 && (
                                         <div className="flex items-center justify-between mt-6 pt-6 border-t">
                                             <p className="text-sm text-muted-foreground">
-                                                Showing {(pagination.current_page - 1) * pagination.per_page + 1} to{' '}
-                                                {Math.min(pagination.current_page * pagination.per_page, pagination.total)} of{' '}
-                                                {pagination.total} games
+                                                Menampilkan {(pagination.current_page - 1) * pagination.per_page + 1} sampai{' '}
+                                                {Math.min(pagination.current_page * pagination.per_page, pagination.total)} dari{' '}
+                                                {pagination.total} game
                                             </p>
                                             <div className="flex gap-2">
                                                 <Button

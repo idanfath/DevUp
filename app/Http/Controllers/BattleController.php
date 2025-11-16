@@ -8,7 +8,6 @@ use App\Models\RoundHistory;
 use App\Models\User;
 use App\Services\GroqService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class BattleController extends Controller
@@ -30,11 +29,11 @@ class BattleController extends Controller
 
         // Only host can configure
         if ($lobby->host_id !== $user->id) {
-            return redirect()->route('lobby')->with('error', 'Only the host can configure the game.');
+            return redirect()->route('lobby')->with('error', 'Hanya host yang bisa mengkonfigurasi game.');
         }
 
-        if ($lobby->status !== 'waiting' || !$lobby->guest_id) {
-            return redirect()->route('lobby')->with('error', 'Cannot configure game at this time.');
+        if ($lobby->status !== 'waiting' || ! $lobby->guest_id) {
+            return redirect()->route('lobby')->with('error', 'Tidak bisa mengkonfigurasi game saat ini.');
         }
 
         return Inertia::render('battle/configure', [
@@ -43,7 +42,7 @@ class BattleController extends Controller
             'difficulties' => ['easy', 'medium', 'hard'],
             'gameTypes' => [
                 ['value' => 'debug', 'label' => 'Debug Challenge', 'description' => 'Fix broken code'],
-                ['value' => 'problem-solving', 'label' => 'Problem Solving', 'description' => 'Write code from scratch']
+                ['value' => 'problem-solving', 'label' => 'Problem Solving', 'description' => 'Write code from scratch'],
             ],
         ]);
     }
@@ -64,7 +63,7 @@ class BattleController extends Controller
         $user = auth()->user();
 
         if ($lobby->host_id !== $user->id) {
-            return back()->with('error', 'Only the host can start the game.');
+            return back()->with('error', 'Hanya host yang bisa memulai game.');
         }
 
         // Update lobby configuration
@@ -105,11 +104,11 @@ class BattleController extends Controller
         $user = auth()->user();
 
         if ($lobby->host_id !== $user->id && $lobby->guest_id !== $user->id) {
-            return redirect()->route('lobby')->with('error', 'You are not part of this battle.');
+            return redirect()->route('lobby')->with('error', 'Kamu bukan bagian dari battle ini.');
         }
 
         if ($lobby->status !== 'started') {
-            return redirect()->route('lobby')->with('error', 'Battle has not started yet.');
+            return redirect()->route('lobby')->with('error', 'Battle belum dimulai.');
         }
 
         $history = History::where('host', $lobby->host_id)
@@ -117,8 +116,8 @@ class BattleController extends Controller
             ->whereNull('end_time')
             ->first();
 
-        if (!$history) {
-            return redirect()->route('lobby')->with('error', 'No active battle found.');
+        if (! $history) {
+            return redirect()->route('lobby')->with('error', 'Tidak ada battle aktif.');
         }
 
         $currentRound = RoundHistory::where('history_id', $history->id)
@@ -144,7 +143,7 @@ class BattleController extends Controller
         $user = auth()->user();
 
         if ($lobby->host_id !== $user->id && $lobby->guest_id !== $user->id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            return response()->json(['error' => 'Tidak diizinkan'], 403);
         }
 
         $history = History::where('host', $lobby->host_id)
@@ -152,8 +151,8 @@ class BattleController extends Controller
             ->whereNull('end_time')
             ->first();
 
-        if (!$history) {
-            return response()->json(['error' => 'No active battle'], 404);
+        if (! $history) {
+            return response()->json(['error' => 'Tidak ada battle aktif'], 404);
         }
 
         $currentRound = RoundHistory::where('history_id', $history->id)
@@ -183,8 +182,8 @@ class BattleController extends Controller
         $user = auth()->user();
         $isHost = $lobby->host_id === $user->id;
 
-        if (!$isHost && $lobby->guest_id !== $user->id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+        if (! $isHost && $lobby->guest_id !== $user->id) {
+            return response()->json(['error' => 'Tidak diizinkan'], 403);
         }
 
         $history = History::where('host', $lobby->host_id)
@@ -192,24 +191,24 @@ class BattleController extends Controller
             ->whereNull('end_time')
             ->first();
 
-        if (!$history) {
-            return response()->json(['error' => 'No active battle'], 404);
+        if (! $history) {
+            return response()->json(['error' => 'Tidak ada battle aktif'], 404);
         }
 
         $round = RoundHistory::where('history_id', $history->id)
             ->where('round_number', $lobby->current_round)
             ->first();
 
-        if (!$round) {
-            return response()->json(['error' => 'Invalid round'], 404);
+        if (! $round) {
+            return response()->json(['error' => 'Ronde tidak valid'], 404);
         }
 
         // Check if already submitted
         if ($isHost && $round->host_submitted_at) {
-            return response()->json(['error' => 'Already submitted'], 400);
+            return response()->json(['error' => 'Sudah disubmit'], 400);
         }
-        if (!$isHost && $round->guest_submitted_at) {
-            return response()->json(['error' => 'Already submitted'], 400);
+        if (! $isHost && $round->guest_submitted_at) {
+            return response()->json(['error' => 'Sudah disubmit'], 400);
         }
 
         // Calculate submission time
@@ -371,7 +370,7 @@ class BattleController extends Controller
         $user = auth()->user();
 
         if ($lobby->host_id !== $user->id && $lobby->guest_id !== $user->id) {
-            return redirect()->route('lobby')->with('error', 'You are not part of this battle.');
+            return redirect()->route('lobby')->with('error', 'Kamu bukan bagian dari battle ini.');
         }
 
         $history = History::with(['roundHistories', 'host', 'guest'])
@@ -381,8 +380,8 @@ class BattleController extends Controller
             ->latest()
             ->first();
 
-        if (!$history) {
-            return redirect()->route('lobby')->with('error', 'No completed battle found.');
+        if (! $history) {
+            return redirect()->route('lobby')->with('error', 'Tidak ada battle yang selesai.');
         }
 
         $winner = $history->winner_id ? User::find($history->winner_id) : null;
@@ -390,7 +389,7 @@ class BattleController extends Controller
         return Inertia::render('battle/results', [
             'lobby' => $this->formatLobbyData($lobby),
             'history' => $this->formatHistoryData($history),
-            'rounds' => $history->roundHistories->map(fn($r) => $this->formatRoundData($r, true, true)),
+            'rounds' => $history->roundHistories->map(fn ($r) => $this->formatRoundData($r, true, true)),
             'winner' => $winner ? [
                 'id' => $winner->id,
                 'username' => $winner->username,
@@ -454,8 +453,8 @@ class BattleController extends Controller
             'initial_code' => $round->initial_code,
             'host_score' => $round->host_score_increase,
             'guest_score' => $round->guest_score_increase,
-            'host_submitted' => !is_null($round->host_submitted_at),
-            'guest_submitted' => !is_null($round->guest_submitted_at),
+            'host_submitted' => ! is_null($round->host_submitted_at),
+            'guest_submitted' => ! is_null($round->guest_submitted_at),
             'my_code' => $showBothCodes ? null : ($isHost ? $round->host_code : $round->guest_code),
             'my_evaluation' => $showBothCodes ? null : json_decode($isHost ? $round->host_explanation : $round->guest_explanation, true),
             'host_code' => $showBothCodes ? $round->host_code : null,

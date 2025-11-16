@@ -19,7 +19,7 @@ import { Upload, X, Camera } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'Pengaturan Profil',
         href: edit().url,
     },
 ];
@@ -64,13 +64,13 @@ export default function Profile({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+            <Head title="Pengaturan Profil" />
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Profile information"
-                        description="Update your profile picture, username, and other details"
+                        title="Informasi Profil"
+                        description="Perbarui foto profil, username, dan detail lainnya"
                     />
 
                     <Form
@@ -84,7 +84,7 @@ export default function Profile({
                             <>
                                 {/* Profile Picture Section */}
                                 <div className="space-y-3">
-                                    <Label>Profile Picture</Label>
+                                    <Label>Foto Profil</Label>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="h-24 w-24">
                                             <AvatarImage
@@ -113,7 +113,7 @@ export default function Profile({
                                                 disabled={processing}
                                             >
                                                 <Camera className="mr-2" />
-                                                {previewUrl ? 'Change Photo' : 'Upload Photo'}
+                                                {previewUrl ? 'Ganti Foto' : 'Upload Foto'}
                                             </Button>
                                             {previewUrl && (
                                                 <Button
@@ -124,7 +124,7 @@ export default function Profile({
                                                     disabled={processing}
                                                 >
                                                     <X className="mr-2" />
-                                                    Remove Photo
+                                                    Hapus Foto
                                                 </Button>
                                             )}
                                             <input
@@ -135,7 +135,7 @@ export default function Profile({
                                         </div>
                                     </div>
                                     <p className="text-sm text-muted-foreground">
-                                        JPG, PNG or GIF. Max size 2MB.
+                                        JPG, PNG atau GIF. Ukuran maksimal 2MB.
                                     </p>
                                     {errors.profile_picture && (
                                         <p className="text-sm text-destructive">{errors.profile_picture}</p>
@@ -167,7 +167,7 @@ export default function Profile({
                                         defaultValue={auth.user.nickname || ''}
                                         name="nickname"
                                         autoComplete="nickname"
-                                        placeholder="Your display name"
+                                        placeholder="Nama tampilan Anda"
                                         aria-invalid={!!errors.nickname}
                                     />
                                     {errors.nickname && (
@@ -176,7 +176,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address <span className="text-destructive">*</span></Label>
+                                    <Label htmlFor="email">Alamat Email <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -185,7 +185,7 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="email"
-                                        placeholder="Email address"
+                                        placeholder="Alamat email"
                                         aria-invalid={!!errors.email}
                                     />
                                     {errors.email && (
@@ -200,7 +200,7 @@ export default function Profile({
                                         className="mt-1 block w-full"
                                         defaultValue={auth.user.bio ?? ''}
                                         name="bio"
-                                        placeholder="Tell us about yourself"
+                                        placeholder="Ceritakan tentang diri Anda"
                                         aria-invalid={!!errors.bio}
                                     />
                                     {errors.bio && (
@@ -212,24 +212,23 @@ export default function Profile({
                                     auth.user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
-                                                Your email address is
-                                                unverified.{' '}
+                                                Alamat email Anda belum
+                                                diverifikasi.{' '}
                                                 <Link
                                                     href={send()}
                                                     as="button"
                                                     className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                                 >
-                                                    Click here to resend the
-                                                    verification email.
+                                                    Klik di sini untuk mengirim ulang
+                                                    email verifikasi.
                                                 </Link>
                                             </p>
 
                                             {status ===
                                                 'verification-link-sent' && (
                                                     <div className="mt-2 text-sm font-medium text-green-600">
-                                                        A new verification link has
-                                                        been sent to your email
-                                                        address.
+                                                        Link verifikasi baru telah
+                                                        dikirim ke alamat email Anda.
                                                     </div>
                                                 )}
                                         </div>
@@ -238,7 +237,7 @@ export default function Profile({
                                 {status === 'profile-updated' && (
                                     <div className="rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 p-3">
                                         <p className="text-sm font-medium text-green-600 dark:text-green-400">
-                                            ✨ Profile updated successfully!
+                                            ✨ Profil berhasil diperbarui!
                                         </p>
                                     </div>
                                 )}
@@ -249,7 +248,7 @@ export default function Profile({
                                         data-test="update-profile-button"
                                         className="bg-linear-to-r cursor-pointer from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                     >
-                                        💾 Save Changes
+                                        💾 Simpan Perubahan
                                     </Button>
 
                                     <Transition
@@ -260,7 +259,7 @@ export default function Profile({
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm font-medium text-green-600 dark:text-green-400">
-                                            ✨ Saved
+                                            ✨ Tersimpan
                                         </p>
                                     </Transition>
                                 </div>

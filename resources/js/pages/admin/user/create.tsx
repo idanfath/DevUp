@@ -12,11 +12,11 @@ import { Spinner } from '@/components/ui/spinner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'User Management',
+        title: 'Manajemen Pengguna',
         href: userManagement.index().url,
     },
     {
-        title: 'Create User',
+        title: 'Buat Pengguna',
         href: userManagement.create().url,
     },
 ];
@@ -24,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function CreateUser() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create User" />
+            <Head title="Buat Pengguna" />
 
             <div className=" flex justify-center items-center h-full">
                 <Card className='m-4 w-full max-w-4xl'>
@@ -36,8 +36,8 @@ export default function CreateUser() {
                                 </Link>
                             </Button>
                             <div>
-                                <CardTitle>Create New User</CardTitle>
-                                <CardDescription>Add a new user to the system</CardDescription>
+                                <CardTitle>Buat Pengguna Baru</CardTitle>
+                                <CardDescription>Tambahkan pengguna baru ke sistem</CardDescription>
                             </div>
                         </div>
                     </CardHeader>
@@ -55,7 +55,7 @@ export default function CreateUser() {
                                             type="text"
                                             required
                                             autoFocus
-                                            placeholder="Enter username"
+                                            placeholder="Masukkan username"
                                             aria-invalid={!!errors.username}
                                         />
                                         {errors.username && (
@@ -72,7 +72,7 @@ export default function CreateUser() {
                                             name="email"
                                             type="email"
                                             required
-                                            placeholder="Enter email address"
+                                            placeholder="Masukkan alamat email"
                                             aria-invalid={!!errors.email}
                                         />
                                         {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
@@ -87,7 +87,7 @@ export default function CreateUser() {
                                             name="password"
                                             type="password"
                                             required
-                                            placeholder="Enter password"
+                                            placeholder="Masukkan password"
                                             aria-invalid={!!errors.password}
                                         />
                                         {errors.password && (
@@ -97,14 +97,14 @@ export default function CreateUser() {
 
                                     <div className="space-y-2">
                                         <Label htmlFor="password_confirmation">
-                                            Confirm Password <span className="text-destructive">*</span>
+                                            Konfirmasi Password <span className="text-destructive">*</span>
                                         </Label>
                                         <Input
                                             id="password_confirmation"
                                             name="password_confirmation"
                                             type="password"
                                             required
-                                            placeholder="Confirm password"
+                                            placeholder="Konfirmasi password"
                                             aria-invalid={!!errors.password_confirmation}
                                         />
                                         {errors.password_confirmation && (
@@ -118,7 +118,7 @@ export default function CreateUser() {
                                         </Label>
                                         <Select name="role" defaultValue="user" required>
                                             <SelectTrigger id="role" aria-invalid={!!errors.role}>
-                                                <SelectValue placeholder="Select role" />
+                                                <SelectValue placeholder="Pilih role" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="user">User</SelectItem>
@@ -134,7 +134,7 @@ export default function CreateUser() {
                                             id="nickname"
                                             name="nickname"
                                             type="text"
-                                            placeholder="Enter nickname (optional)"
+                                            placeholder="Masukkan nickname (opsional)"
                                             aria-invalid={!!errors.nickname}
                                         />
                                         {errors.nickname && (
@@ -148,7 +148,7 @@ export default function CreateUser() {
                                             id="bio"
                                             name="bio"
                                             type="text"
-                                            placeholder="Enter bio (optional)"
+                                            placeholder="Masukkan bio (opsional)"
                                             aria-invalid={!!errors.bio}
                                         />
                                         {errors.bio && <p className="text-sm text-destructive">{errors.bio}</p>}
@@ -157,10 +157,10 @@ export default function CreateUser() {
                                     <div className="flex items-center gap-2 pt-4">
                                         <Button type="submit" disabled={processing}>
                                             {processing && <Spinner />}
-                                            Create User
+                                            Buat Pengguna
                                         </Button>
                                         <Button variant="outline" asChild>
-                                            <Link href={userManagement.index().url}>Cancel</Link>
+                                            <Link href={userManagement.index().url}>Batal</Link>
                                         </Button>
                                     </div>
                                 </>

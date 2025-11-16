@@ -20,7 +20,7 @@ import {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'User Management',
+        title: 'Manajemen Pengguna',
         href: userManagement.index().url,
     },
 ];
@@ -72,19 +72,19 @@ export default function UserManagement({ users }: Props) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="User Management" />
+            <Head title="Manajemen Pengguna" />
 
             <Card className='m-4'>
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <div>
-                            <CardTitle>Users</CardTitle>
-                            <CardDescription>Manage all users in the system</CardDescription>
+                            <CardTitle>Pengguna</CardTitle>
+                            <CardDescription>Kelola semua pengguna dalam sistem</CardDescription>
                         </div>
                         <Button asChild>
                             <Link href={userManagement.create().url}>
                                 <PlusIcon />
-                                Add User
+                                Tambah Pengguna
                             </Link>
                         </Button>
                     </div>
@@ -94,7 +94,7 @@ export default function UserManagement({ users }: Props) {
                         <div className="relative">
                             <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                             <Input
-                                placeholder="Search by username, email, or nickname..."
+                                placeholder="Cari berdasarkan username, email, atau nickname..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="pl-9"
@@ -109,18 +109,18 @@ export default function UserManagement({ users }: Props) {
                                 <TableHead>Email</TableHead>
                                 <TableHead>Role</TableHead>
                                 <TableHead>Nickname</TableHead>
-                                <TableHead className="text-right">Experience</TableHead>
-                                <TableHead className="text-right">Matches</TableHead>
-                                <TableHead className="text-right">Wins</TableHead>
+                                <TableHead className="text-right">Pengalaman</TableHead>
+                                <TableHead className="text-right">Pertandingan</TableHead>
+                                <TableHead className="text-right">Menang</TableHead>
                                 <TableHead className="text-right">Streak</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                                <TableHead className="text-right">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {filteredUsers.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={9} className="text-center text-muted-foreground">
-                                        No users found
+                                        Tidak ada pengguna ditemukan
                                     </TableCell>
                                 </TableRow>
                             ) : (
@@ -165,18 +165,18 @@ export default function UserManagement({ users }: Props) {
             <Dialog open={deleteDialog.open} onOpenChange={(open) => setDeleteDialog({ open, user: null })}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Delete User</DialogTitle>
+                        <DialogTitle>Hapus Pengguna</DialogTitle>
                         <DialogDescription>
-                            Are you sure you want to delete user "{deleteDialog.user?.username}"? This action cannot be
-                            undone.
+                            Apakah Anda yakin ingin menghapus pengguna "{deleteDialog.user?.username}"? Tindakan ini tidak dapat
+                            dibatalkan.
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setDeleteDialog({ open: false, user: null })}>
-                            Cancel
+                            Batal
                         </Button>
                         <Button variant="destructive" onClick={confirmDelete}>
-                            Delete
+                            Hapus
                         </Button>
                     </DialogFooter>
                 </DialogContent>

@@ -102,14 +102,14 @@ export default function Dashboard({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Admin Dashboard" />
+            <Head title="Dashboard Admin" />
 
             <div className="m-4 space-y-6">
                 {/* Header */}
                 <div>
-                    <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+                    <h1 className="text-3xl font-bold">Dashboard Admin</h1>
                     <p className="text-muted-foreground">
-                        Overview of platform statistics and activity
+                        Ringkasan statistik dan aktivitas platform
                     </p>
                 </div>
 
@@ -117,33 +117,33 @@ export default function Dashboard({
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Pengguna</CardTitle>
                             <UsersIcon className="size-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{stats.totalUsers}</div>
                             <p className="text-xs text-muted-foreground">
-                                +{stats.newUsers} in last 7 days
+                                +{stats.newUsers} dalam 7 hari terakhir
                             </p>
                         </CardContent>
                     </Card>
 
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Games</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Game</CardTitle>
                             <GamepadIcon className="size-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{stats.totalGames}</div>
                             <p className="text-xs text-muted-foreground">
-                                +{stats.recentGames} in last 7 days
+                                +{stats.recentGames} dalam 7 hari terakhir
                             </p>
                         </CardContent>
                     </Card>
 
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Rounds</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Ronde</CardTitle>
                             <TrendingUpIcon className="size-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
@@ -152,19 +152,19 @@ export default function Dashboard({
                                 {stats.totalGames > 0
                                     ? (stats.totalRounds / stats.totalGames).toFixed(1)
                                     : 0}{' '}
-                                avg per game
+                                rata-rata per game
                             </p>
                         </CardContent>
                     </Card>
 
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Active Games</CardTitle>
+                            <CardTitle className="text-sm font-medium">Game Aktif</CardTitle>
                             <ActivityIcon className="size-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{stats.activeGames}</div>
-                            <p className="text-xs text-muted-foreground">Currently in progress</p>
+                            <p className="text-xs text-muted-foreground">Sedang berlangsung</p>
                         </CardContent>
                     </Card>
                 </div>
@@ -175,9 +175,9 @@ export default function Dashboard({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <BarChart3Icon className="size-5" />
-                                Game Type Distribution
+                                Distribusi Tipe Game
                             </CardTitle>
-                            <CardDescription>Breakdown by challenge type</CardDescription>
+                            <CardDescription>Berdasarkan jenis challenge</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             {Object.entries(gameTypeDistribution).map(([type, count]) => (
@@ -203,9 +203,9 @@ export default function Dashboard({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <BarChart3Icon className="size-5" />
-                                Difficulty Distribution
+                                Distribusi Tingkat Kesulitan
                             </CardTitle>
-                            <CardDescription>Games by difficulty level</CardDescription>
+                            <CardDescription>Game berdasarkan tingkat kesulitan</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             {Object.entries(difficultyDistribution).map(([difficulty, count]) => (
@@ -238,9 +238,9 @@ export default function Dashboard({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <CodeIcon className="size-5" />
-                                Popular Languages
+                                Bahasa Populer
                             </CardTitle>
-                            <CardDescription>Most used programming languages</CardDescription>
+                            <CardDescription>Bahasa pemrograman paling banyak digunakan</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
@@ -269,9 +269,9 @@ export default function Dashboard({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <TrophyIcon className="size-5" />
-                                Top Performers
+                                Pemain Teratas
                             </CardTitle>
-                            <CardDescription>Users with highest win rates</CardDescription>
+                            <CardDescription>Pengguna dengan win rate tertinggi</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
@@ -304,9 +304,9 @@ export default function Dashboard({
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <ClockIcon className="size-5" />
-                            Recent Completed Games
+                            Game yang Baru Selesai
                         </CardTitle>
-                        <CardDescription>Latest finished challenges</CardDescription>
+                        <CardDescription>Challenge yang baru saja diselesaikan</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-3">
@@ -349,7 +349,7 @@ export default function Dashboard({
                                                 <ClockIcon className="size-3" />
                                                 {game.duration} min
                                                 <span>•</span>
-                                                {game.round} rounds
+                                                {game.round} ronde
                                             </div>
                                         </div>
                                     </div>

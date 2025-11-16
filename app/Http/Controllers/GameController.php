@@ -23,6 +23,17 @@ class GameController extends Controller
      */
     public function configure()
     {
+        $user = auth()->user();
+
+        // Check if user has an ongoing game
+        $ongoingGame = History::where('user_id', $user->id)
+            ->whereNull('end_time')
+            ->first();
+
+        if ($ongoingGame) {
+            return redirect()->route('game.play')->with('info', 'Kamu punya game yang sedang berjalan. Selesaikan atau hentikan terlebih dahulu!');
+        }
+
         return Inertia::render('game/configure', [
             'languages' => $this->getAvailableLanguages(),
             'difficulties' => ['easy', 'medium', 'hard'],
@@ -53,7 +64,7 @@ class GameController extends Controller
             ->first();
 
         if ($ongoingGame) {
-            return redirect()->route('game.play')->with('info', 'You have an ongoing game. Complete it first!');
+            return redirect()->route('game.play')->with('info', 'Kamu punya game yang sedang berjalan. Selesaikan terlebih dahulu!');
         }
 
         // Create history record
@@ -90,14 +101,14 @@ class GameController extends Controller
     {
         $historyId = session('active_game_id');
         if (! $historyId) {
-            return redirect()->route('game.configure')->with('error', 'No active game found.');
+            return redirect()->route('game.configure')->with('error', 'Tidak ada game aktif.');
         }
 
         $history = History::with('roundHistories')->findOrFail($historyId);
         $currentRoundNum = session('current_round', 1);
 
         if ($history->user_id !== auth()->id()) {
-            return redirect()->route('game.configure')->with('error', 'Unauthorized.');
+            return redirect()->route('game.configure')->with('error', 'Tidak diizinkan.');
         }
 
         $currentRound = RoundHistory::where('history_id', $history->id)
@@ -105,7 +116,7 @@ class GameController extends Controller
             ->first();
 
         if (! $currentRound) {
-            return redirect()->route('game.configure')->with('error', 'Round not found.');
+            return redirect()->route('game.configure')->with('error', 'Ronde tidak ditemukan.');
         }
 
         return Inertia::render('game/arena', [
@@ -125,14 +136,14 @@ class GameController extends Controller
     {
         $historyId = session('active_game_id');
         if (! $historyId) {
-            return response()->json(['error' => 'No active game'], 404);
+            return response()->json(['error' => 'Tidak ada game aktif'], 404);
         }
 
         $history = History::with('roundHistories')->findOrFail($historyId);
         $currentRoundNum = session('current_round', 1);
 
         if ($history->user_id !== auth()->id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            return response()->json(['error' => 'Tidak diizinkan'], 403);
         }
 
         $currentRound = RoundHistory::where('history_id', $history->id)
@@ -156,14 +167,14 @@ class GameController extends Controller
 
         $historyId = session('active_game_id');
         if (! $historyId) {
-            return response()->json(['error' => 'No active game'], 404);
+            return response()->json(['error' => 'Tidak ada game aktif'], 404);
         }
 
         $history = History::findOrFail($historyId);
         $currentRoundNum = session('current_round', 1);
 
         if ($history->user_id !== auth()->id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            return response()->json(['error' => 'Tidak diizinkan'], 403);
         }
 
         $round = RoundHistory::where('history_id', $history->id)
@@ -171,12 +182,12 @@ class GameController extends Controller
             ->first();
 
         if (! $round) {
-            return response()->json(['error' => 'Invalid round'], 404);
+            return response()->json(['error' => 'Ronde tidak valid'], 404);
         }
 
         // Check if already submitted
         if ($round->submitted_at) {
-            return response()->json(['error' => 'Already submitted'], 400);
+            return response()->json(['error' => 'Sudah disubmit'], 400);
         }
 
         // Get scoring prompt
@@ -316,20 +327,20 @@ class GameController extends Controller
     {
         $historyId = session('active_game_id');
         if (! $historyId) {
-            return redirect()->route('lobby')->with('error', 'No active game found.');
+            return redirect()->route('lobby')->with('error', 'Tidak ada game aktif.');
         }
 
         $history = History::findOrFail($historyId);
 
         if ($history->user_id !== auth()->id()) {
-            return redirect()->route('lobby')->with('error', 'Unauthorized.');
+            return redirect()->route('lobby')->with('error', 'Tidak diizinkan.');
         }
 
         // End game without updating stats
         $history->update(['end_time' => now()]);
         session()->forget(['active_game_id', 'current_round', 'round_count', 'language', 'difficulty', 'game_type']);
 
-        return redirect()->route('lobby')->with('info', 'Game terminated.');
+        return redirect()->route('lobby')->with('info', 'Game dihentikan.');
     }
 
     /**
@@ -393,8 +404,9 @@ class GameController extends Controller
         }
 
         if (! $history) {
-            $redirectRoute = auth()->user()->role === 'admin' ? 'dashboard' : 'game.configure';
-            return redirect()->route($redirectRoute)->with('error', 'No completed game found.');
+            $redirectRoute = auth()->user()->role === 'admin' ? 'dashboard' : 'lobby';
+            $errorMessage = $id ? 'Game tidak ditemukan atau kamu tidak punya izin untuk melihatnya.' : 'Tidak ada game yang selesai.';
+            return redirect()->route($redirectRoute)->with('error', $errorMessage);
         }
 
         return Inertia::render('game/results', [

@@ -19,7 +19,7 @@ interface TwoFactorProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Two-Factor Authentication',
+        title: 'Autentikasi Dua Faktor',
         href: show.url(),
     },
 ];
@@ -42,21 +42,21 @@ export default function TwoFactor({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Two-Factor Authentication" />
+            <Head title="Autentikasi Dua Faktor" />
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Two-Factor Authentication"
-                        description="Manage your two-factor authentication settings"
+                        title="Autentikasi Dua Faktor"
+                        description="Kelola pengaturan autentikasi dua faktor Anda"
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-semibold  py-1 rounded-lg">Enabled</Badge>
+                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-semibold  py-1 rounded-lg">Aktif</Badge>
                             <p className="text-gray-600 dark:text-gray-400">
-                                With two-factor authentication enabled, you will
-                                be prompted for a secure, random pin during
-                                login, which you can retrieve from the
-                                TOTP-supported application on your phone.
+                                Dengan autentikasi dua faktor diaktifkan, Anda akan
+                                diminta memasukkan PIN acak yang aman saat
+                                login, yang bisa Anda dapatkan dari
+                                aplikasi TOTP di ponsel Anda.
                             </p>
 
                             <TwoFactorRecoveryCodes
@@ -74,7 +74,7 @@ export default function TwoFactor({
                                             disabled={processing}
                                             className="rounded-xl font-semibold"
                                         >
-                                            <ShieldBan /> Disable 2FA
+                                            <ShieldBan /> Nonaktifkan 2FA
                                         </Button>
                                     )}
                                 </Form>
@@ -82,12 +82,12 @@ export default function TwoFactor({
                         </div>
                     ) : (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 rounded-lg">Disabled</Badge>
+                            <Badge className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 rounded-lg">Tidak Aktif</Badge>
                             <p className="text-gray-600 dark:text-gray-400">
-                                When you enable two-factor authentication, you
-                                will be prompted for a secure pin during login.
-                                This pin can be retrieved from a TOTP-supported
-                                application on your phone.
+                                Saat Anda mengaktifkan autentikasi dua faktor, Anda
+                                akan diminta memasukkan PIN yang aman saat login.
+                                PIN ini bisa Anda dapatkan dari aplikasi
+                                TOTP di ponsel Anda.
                             </p>
 
                             <div>
@@ -97,7 +97,7 @@ export default function TwoFactor({
                                         className="bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                     >
                                         <ShieldCheck />
-                                        Continue Setup
+                                        Lanjutkan Setup
                                     </Button>
                                 ) : (
                                     <Form
@@ -113,7 +113,7 @@ export default function TwoFactor({
                                                 className="bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-xl"
                                             >
                                                 <ShieldCheck />
-                                                Enable 2FA
+                                                Aktifkan 2FA
                                             </Button>
                                         )}
                                     </Form>

@@ -30,18 +30,18 @@ interface Props {
 export default function EditUser({ user }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: 'User Management',
+            title: 'Manajemen Pengguna',
             href: userManagement.index().url,
         },
         {
-            title: 'Edit User',
+            title: 'Edit Pengguna',
             href: userManagement.edit(user.id).url,
         },
     ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={`Edit User - ${user.username}`} />
+            <Head title={`Edit Pengguna - ${user.username}`} />
 
             <div className=" flex justify-center">
                 <Card className='m-4 w-full max-w-4xl'>
@@ -53,8 +53,8 @@ export default function EditUser({ user }: Props) {
                                 </Link>
                             </Button>
                             <div>
-                                <CardTitle>Edit User</CardTitle>
-                                <CardDescription>Update user information for {user.username}</CardDescription>
+                                <CardTitle>Edit Pengguna</CardTitle>
+                                <CardDescription>Perbarui informasi pengguna untuk {user.username}</CardDescription>
                             </div>
                         </div>
                     </CardHeader>
@@ -73,7 +73,7 @@ export default function EditUser({ user }: Props) {
                                             required
                                             autoFocus
                                             defaultValue={user.username}
-                                            placeholder="Enter username"
+                                            placeholder="Masukkan username"
                                             aria-invalid={!!errors.username}
                                         />
                                         {errors.username && (
@@ -91,7 +91,7 @@ export default function EditUser({ user }: Props) {
                                             type="email"
                                             required
                                             defaultValue={user.email}
-                                            placeholder="Enter email address"
+                                            placeholder="Masukkan alamat email"
                                             aria-invalid={!!errors.email}
                                         />
                                         {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
@@ -103,11 +103,11 @@ export default function EditUser({ user }: Props) {
                                             id="password"
                                             name="password"
                                             type="password"
-                                            placeholder="Leave blank to keep current password"
+                                            placeholder="Biarkan kosong untuk tetap gunakan password saat ini"
                                             aria-invalid={!!errors.password}
                                         />
                                         <p className="text-xs text-muted-foreground">
-                                            Only fill this if you want to change the password
+                                            Isi hanya jika ingin mengubah password
                                         </p>
                                         {errors.password && (
                                             <p className="text-sm text-destructive">{errors.password}</p>
@@ -115,12 +115,12 @@ export default function EditUser({ user }: Props) {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <Label htmlFor="password_confirmation">Confirm Password</Label>
+                                        <Label htmlFor="password_confirmation">Konfirmasi Password</Label>
                                         <Input
                                             id="password_confirmation"
                                             name="password_confirmation"
                                             type="password"
-                                            placeholder="Confirm new password"
+                                            placeholder="Konfirmasi password baru"
                                             aria-invalid={!!errors.password_confirmation}
                                         />
                                         {errors.password_confirmation && (
@@ -134,7 +134,7 @@ export default function EditUser({ user }: Props) {
                                         </Label>
                                         <Select name="role" defaultValue={user.role} required>
                                             <SelectTrigger id="role" aria-invalid={!!errors.role}>
-                                                <SelectValue placeholder="Select role" />
+                                                <SelectValue placeholder="Pilih role" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="user">User</SelectItem>
@@ -151,7 +151,7 @@ export default function EditUser({ user }: Props) {
                                             name="nickname"
                                             type="text"
                                             defaultValue={user.nickname || ''}
-                                            placeholder="Enter nickname (optional)"
+                                            placeholder="Masukkan nickname (opsional)"
                                             aria-invalid={!!errors.nickname}
                                         />
                                         {errors.nickname && (
@@ -166,7 +166,7 @@ export default function EditUser({ user }: Props) {
                                             name="bio"
                                             type="text"
                                             defaultValue={user.bio || ''}
-                                            placeholder="Enter bio (optional)"
+                                            placeholder="Masukkan bio (opsional)"
                                             aria-invalid={!!errors.bio}
                                         />
                                         {errors.bio && <p className="text-sm text-destructive">{errors.bio}</p>}
@@ -189,7 +189,7 @@ export default function EditUser({ user }: Props) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="total_matches">Total Matches</Label>
+                                            <Label htmlFor="total_matches">Total Pertandingan</Label>
                                             <Input
                                                 id="total_matches"
                                                 name="total_matches"
@@ -217,7 +217,7 @@ export default function EditUser({ user }: Props) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="current_streak">Current Streak</Label>
+                                            <Label htmlFor="current_streak">Streak Saat Ini</Label>
                                             <Input
                                                 id="current_streak"
                                                 name="current_streak"
@@ -235,10 +235,10 @@ export default function EditUser({ user }: Props) {
                                     <div className="flex items-center gap-2 pt-4">
                                         <Button type="submit" disabled={processing}>
                                             {processing && <Spinner />}
-                                            Update User
+                                            Perbarui Pengguna
                                         </Button>
                                         <Button variant="outline" asChild>
-                                            <Link href={userManagement.index().url}>Cancel</Link>
+                                            <Link href={userManagement.index().url}>Batal</Link>
                                         </Button>
                                     </div>
                                 </>

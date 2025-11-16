@@ -22,7 +22,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/lobby' },
-    { title: 'Configure Game', href: '/game/configure' },
+    { title: 'Konfigurasi Game', href: '/game/configure' },
 ];
 
 interface Language {
@@ -57,7 +57,7 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Configure Game" />
+            <Head title="Konfigurasi Game" />
 
             <div className="flex w-full justify-center">
                 <div className="m-4 max-w-3xl w-full space-y-6">
@@ -69,9 +69,9 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
                                     <SparklesIcon className="size-12 text-primary" />
                                 </div>
                             </div>
-                            <CardTitle className="text-3xl">Start Your Coding Challenge</CardTitle>
+                            <CardTitle className="text-3xl">Mulai Coding Challenge</CardTitle>
                             <CardDescription className="text-base">
-                                Test your skills with AI-generated coding challenges
+                                Uji kemampuan coding kamu dengan challenge yang dihasilkan AI
                             </CardDescription>
                         </CardHeader>
                     </Card>
@@ -82,22 +82,22 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <SettingsIcon className="size-5" />
-                                    Game Configuration
+                                    Konfigurasi Game
                                 </CardTitle>
                                 <CardDescription>
-                                    Choose your preferred language, difficulty, and challenge type
+                                    Pilih bahasa, tingkat kesulitan, dan tipe challenge
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
                                 {/* Programming Language */}
                                 <div className="flex gap-3 flex-col">
-                                    <Label htmlFor="language">Programming Language</Label>
+                                    <Label htmlFor="language">Bahasa Pemrograman</Label>
                                     <Select
                                         value={data.language}
                                         onValueChange={(value) => setData('language', value)}
                                     >
                                         <SelectTrigger id="language">
-                                            <SelectValue placeholder="Select language" />
+                                            <SelectValue placeholder="Pilih bahasa" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {languages.map((lang) => (
@@ -114,13 +114,13 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
 
                                 {/* Difficulty */}
                                 <div className="flex gap-3 flex-col">
-                                    <Label htmlFor="difficulty">Difficulty Level</Label>
+                                    <Label htmlFor="difficulty">Tingkat Kesulitan</Label>
                                     <Select
                                         value={data.difficulty}
                                         onValueChange={(value) => setData('difficulty', value)}
                                     >
                                         <SelectTrigger id="difficulty">
-                                            <SelectValue placeholder="Select difficulty" />
+                                            <SelectValue placeholder="Pilih kesulitan" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {difficulties.map((diff) => (
@@ -137,18 +137,18 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
 
                                 {/* Number of Rounds */}
                                 <div className="flex gap-3 flex-col">
-                                    <Label htmlFor="rounds">Number of Rounds</Label>
+                                    <Label htmlFor="rounds">Jumlah Ronde</Label>
                                     <Select
                                         value={data.round_count.toString()}
                                         onValueChange={(value) => setData('round_count', parseInt(value))}
                                     >
                                         <SelectTrigger id="rounds">
-                                            <SelectValue placeholder="Select rounds" />
+                                            <SelectValue placeholder="Pilih jumlah ronde" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {[1, 3, 5, 7].map((num) => (
                                                 <SelectItem key={num} value={num.toString()}>
-                                                    {num} {num === 1 ? 'Round' : 'Rounds'}
+                                                    {num} Ronde
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -160,7 +160,7 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
 
                                 {/* Game Type */}
                                 <div className="flex gap-3 flex-col">
-                                    <Label>Challenge Type</Label>
+                                    <Label>Tipe Challenge</Label>
                                     <RadioGroup
                                         value={data.game_type}
                                         onValueChange={(value: string) => setData('game_type', value)}
@@ -208,7 +208,7 @@ export default function Configure({ languages, difficulties, gameTypes }: Props)
                                 className="bg-linear-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-bold px-12"
                             >
                                 <PlayIcon className="mr-2" />
-                                {processing ? 'Starting...' : 'Start Challenge!'}
+                                {processing ? 'Memulai...' : 'Mulai Challenge!'}
                             </Button>
                         </div>
                     </form>

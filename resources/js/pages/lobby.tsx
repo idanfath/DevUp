@@ -14,9 +14,12 @@ import {
     TargetIcon,
     CodeIcon,
     CalendarIcon,
-    TrendingUpIcon
+    TrendingUpIcon,
+    XCircleIcon
 } from 'lucide-react';
 import { useInitials } from '@/hooks/use-initials';
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -56,6 +59,18 @@ interface Props {
 export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Props) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
+    const [isTerminating, setIsTerminating] = useState(false);
+
+    const handleTerminateGame = () => {
+        if (!confirm('Apakah Anda yakin ingin menghentikan game ini? Progress Anda akan hilang.')) {
+            return;
+        }
+
+        setIsTerminating(true);
+        router.post('/game/terminate', {}, {
+            onFinish: () => setIsTerminating(false)
+        });
+    };
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -105,7 +120,7 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                                         {auth.user.nickname || auth.user.username}
                                     </h2>
                                     <p className="text-sm text-muted-foreground">
-                                        Ready to code and improve!
+                                        Siap coding dan berkembang!
                                     </p>
                                 </div>
                             </div>
@@ -120,9 +135,9 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-orange-600 dark:text-orange-400">
                                 <ClockIcon className="size-5" />
-                                Ongoing Game
+                                Game Sedang Berjalan
                             </CardTitle>
-                            <CardDescription>You have an unfinished challenge</CardDescription>
+                            <CardDescription>Kamu punya challenge yang belum selesai</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center justify-between">
@@ -141,12 +156,23 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                                         </p>
                                     </div>
                                 </div>
-                                <Button size="lg" className="bg-orange-600 hover:bg-orange-700" asChild>
-                                    <Link href="/game/play">
-                                        <PlayIcon className="mr-2" />
-                                        Continue Game
-                                    </Link>
-                                </Button>
+                                <div className="flex gap-2">
+                                    <Button
+                                        size="lg"
+                                        variant="destructive"
+                                        onClick={handleTerminateGame}
+                                        disabled={isTerminating}
+                                    >
+                                        <XCircleIcon className="mr-2" />
+                                        {isTerminating ? 'Menghentikan...' : 'Hentikan'}
+                                    </Button>
+                                    <Button size="lg" className="bg-orange-600 hover:bg-orange-700" asChild>
+                                        <Link href="/game/play">
+                                            <PlayIcon className="mr-2" />
+                                            Lanjutkan Game
+                                        </Link>
+                                    </Button>
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
@@ -163,30 +189,30 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                                     <div className="p-3 rounded-lg bg-primary/10">
                                         <PlayIcon className="size-8 text-primary" />
                                     </div>
-                                    Start New Challenge
+                                    Mulai Challenge Baru
                                 </CardTitle>
                                 <CardDescription className="text-base mt-2">
-                                    Test your coding skills with AI-generated challenges
+                                    Uji kemampuan coding kamu dengan challenge dari AI
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-2 text-sm text-muted-foreground">
                                     <li className="flex items-center gap-2">
                                         <div className="size-1.5 rounded-full bg-primary" />
-                                        Choose from 10+ programming languages
+                                        Pilih dari 10+ bahasa pemrograman
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <div className="size-1.5 rounded-full bg-primary" />
-                                        3 difficulty levels: Easy, Medium, Hard
+                                        3 tingkat kesulitan: Easy, Medium, Hard
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <div className="size-1.5 rounded-full bg-primary" />
-                                        Debug or Problem Solving challenges
+                                        Challenge Debug atau Problem Solving
                                     </li>
                                 </ul>
                                 <Button className="w-full mt-4" size="lg">
                                     <PlayIcon className="mr-2" />
-                                    Let's Code!
+                                    Ayo Coding!
                                 </Button>
                             </CardContent>
                         </Card>
@@ -197,23 +223,23 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <TrendingUpIcon className="size-5" />
-                                Your Progress
+                                Progress Kamu
                             </CardTitle>
-                            <CardDescription>Keep pushing forward!</CardDescription>
+                            <CardDescription>Terus maju ke depan!</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <TargetIcon className="size-5 text-blue-500" />
-                                        <span className="font-medium">Total Games</span>
+                                        <span className="font-medium">Total Game</span>
                                     </div>
                                     <span className="text-xl font-bold">{recentGames.length}</span>
                                 </div>
                                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <ZapIcon className="size-5 text-yellow-500" />
-                                        <span className="font-medium">Average Score</span>
+                                        <span className="font-medium">Rata-rata Skor</span>
                                     </div>
                                     <span className="text-xl font-bold">
                                         {recentGames.length > 0
@@ -224,7 +250,7 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <CodeIcon className="size-5 text-purple-500" />
-                                        <span className="font-medium">Most Used Language</span>
+                                        <span className="font-medium">Bahasa Paling Sering</span>
                                     </div>
                                     <span className="text-xl font-bold capitalize">
                                         {mostUsedLanguage || 'N/A'}
@@ -242,14 +268,14 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                     <ClockIcon className="size-5" />
-                                    Recent Games
+                                    Game Terbaru
                                 </CardTitle>
-                                <CardDescription>Your latest coding challenges</CardDescription>
+                                <CardDescription>Challenge coding terakhir kamu</CardDescription>
                             </div>
                             {recentGames.length > 0 && (
                                 <Button variant="outline" asChild>
                                     <Link href="/game/history">
-                                        View All History
+                                        Lihat Semua Riwayat
                                     </Link>
                                 </Button>
                             )}
@@ -259,11 +285,11 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                         {recentGames.length === 0 ? (
                             <div className="text-center py-12">
                                 <GamepadIcon className="size-16 text-muted-foreground/50 mx-auto mb-4" />
-                                <p className="text-muted-foreground mb-4">No games played yet</p>
+                                <p className="text-muted-foreground mb-4">Belum ada game yang dimainkan</p>
                                 <Button asChild>
                                     <Link href="/game/configure">
                                         <PlayIcon className="mr-2" />
-                                        Start Your First Challenge
+                                        Mulai Challenge Pertama
                                     </Link>
                                 </Button>
                             </div>
@@ -310,7 +336,7 @@ export default function Lobby({ ongoingGame, recentGames, mostUsedLanguage }: Pr
                                                 {game.total_score}
                                             </div>
                                             <p className="text-xs text-muted-foreground">
-                                                {game.round} {game.round === 1 ? 'round' : 'rounds'}
+                                                {game.round} ronde
                                             </p>
                                         </div>
                                     </Link>

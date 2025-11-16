@@ -15,9 +15,11 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('user-management', UserManagementController::class)->names('userManagement')->except(['show']);
-        // Admin can view any game results
-        Route::get('game/results/{id}', [GameController::class, 'results'])->name('admin.game.results');
     });
+
+    // Route::get('game/results/{id}', [GameController::class, 'results'])->name('admin.game.results');
+    Route::get('game/results/{id?}', [GameController::class, 'results'])->name('game.results');
+
     Route::middleware(['role:user'])->group(function () {
         Route::get('lobby', [LobbyController::class, 'index'])->name('lobby');
         Route::get('game/configure', [GameController::class, 'configure'])->name('game.configure');
@@ -25,7 +27,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('game/play', [GameController::class, 'play'])->name('game.play');
         Route::get('game/state', [GameController::class, 'getState'])->name('game.state');
         Route::post('game/submit', [GameController::class, 'submitCode'])->name('game.submit');
-        Route::get('game/results/{id?}', [GameController::class, 'results'])->name('game.results');
         Route::get('game/history', [GameController::class, 'history'])->name('game.history');
         Route::post('game/terminate', [GameController::class, 'terminate'])->name('game.terminate');
     });

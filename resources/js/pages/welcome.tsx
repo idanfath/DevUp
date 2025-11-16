@@ -218,6 +218,16 @@ export default function Welcome() {
                 {/* Animated Background Elements */}
                 <AnimatedBlobs />
 
+                {/* Beta Notice Banner */}
+                <div className="relative z-20 bg-yellow-400 text-black py-2 px-4">
+                    <div className="max-w-7xl mx-auto text-center">
+                        <p className="text-sm font-semibold flex items-center justify-center gap-2">
+                            <Sparkles className="w-4 h-4" />
+                            <span>🚧 Beta Version: App masih dalam skala kecil. AI generation mungkin terbatas atau lambat. Thanks for your patience! 🙏</span>
+                        </p>
+                    </div>
+                </div>
+
                 {/* Navigation */}
                 <nav className="relative z-10 px-6 py-6 flex justify-between items-center max-w-7xl mx-auto">
                     <Link href="/" className="flex items-center gap-3">
